@@ -1,0 +1,42 @@
+.burgerIngredients {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 600px;
+    height: 86vh;
+}
+
+.tabsBox {
+    display: flex;
+}
+
+.ingredientCell {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+
+}
+.priceBox {
+    display: flex;
+    justify-content: center;
+}
+
+.nameIngredient {
+    width: 275px;
+    text-align: center;
+}
+.counterIngredientCell{
+    margin-left: auto;
+    margin-right: 2px;
+    margin-top: 10px;
+    position:relative;
+    width: 10px;  
+}
+.counterIngredientCellHide{
+    display: none;
+}
+.imageIngredient{
+    padding-top: 43px;
+}
+
+

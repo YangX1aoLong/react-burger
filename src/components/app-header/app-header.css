@@ -1,0 +1,24 @@
+.navPanel {
+    background-color: #1C1C21;
+    display: flex;
+    width: 1920px;
+    height: 9vh;
+}
+.navBox {
+    display: flex;
+}
+
+.contentBox { 
+    display: flex;
+    width: 1280px;
+    height: 56px;
+    margin-left: 320px;
+}
+.logoBurger{    
+    margin-left: 100px;
+
+}
+.loginBox{
+    margin-left: auto;
+    margin-right: 0;
+}

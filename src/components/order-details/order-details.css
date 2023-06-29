@@ -1,0 +1,24 @@
+.closeIconBoxOrderDetails {
+    margin-left: auto;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.orderDetailsBox {    
+    width: 680px;
+    height: 658px;
+}
+
+.numberOrderDetails {
+    text-shadow: 0px 4px 32px #3333FF80, 0px 0px 8px #3333FF40, 0px 0px 16px #3333FF40;
+}
+
+.doneBoxOrderDetails {
+    width: 120px;
+    height: 120px;
+    padding-left: 300px;
+
+}
+
+

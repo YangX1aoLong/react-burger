@@ -1,0 +1,35 @@
+.ingredientDetailsBox {
+    width: 720px;
+    height: 539px;
+}
+.titleIngredientDetails {
+    display: flex;
+    width: 640px;
+    height: 64px;
+    text-emphasis-color: #F2F2F3;
+    
+}
+.natritionBoxIngredientDetails{
+    display: flex;
+    width: 516px;
+    height: 56px; 
+    padding-left: 84px;
+}
+
+.imageIngredientDetails{
+    width: 520px;
+    height: 240px;
+    padding-left: 84px;
+}
+
+.natritionIngredientDetails{
+    width: 120px;
+    height: 56px;
+}
+.closeIconBoxIngredientDetails{
+    margin-left: auto;
+    margin-right: 0px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;   
+}
