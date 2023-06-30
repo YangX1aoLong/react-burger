@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 const ModalOverlay = props => {
     return(
         <div className="modalOverlayBox" style={{display:props.visible?'flex':'none'}}>{props.children}</div>

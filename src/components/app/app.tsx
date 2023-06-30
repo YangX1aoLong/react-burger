@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import AppHeader from './components/app-header';
-import BurgerConstructor from './components/burger-constructor';
-import BurgerIngredients from './components/burger-ingredients';
+import AppHeader from '../app-header';
+import BurgerConstructor from '../burger-constructor';
+import BurgerIngredients from '../burger-ingredients';
 
 const urlData = "https://norma.nomoreparties.space/api/ingredients";
 function App() {
@@ -23,13 +23,13 @@ function App() {
   }, []);
   return (
     <>
-      <AppHeader></AppHeader>
+      <AppHeader/>
       <div className='container'>
         <div className='burgerIngredientsBox'>
-          <BurgerIngredients ingredientsList={ingredientsList} setSelectedIngredients={selectedIngredients}></BurgerIngredients>
+          <BurgerIngredients ingredientsList={ingredientsList} setSelectedIngredients={selectedIngredients}/>
         </div>
         <div className='ml-10'>
-          <BurgerConstructor ingredientsList={ingredientsList} selectedIngredients={getSelectedIngredients} ></BurgerConstructor>
+          <BurgerConstructor ingredientsList={ingredientsList} selectedIngredients={getSelectedIngredients}/>
         </div>
       </div>
     </>

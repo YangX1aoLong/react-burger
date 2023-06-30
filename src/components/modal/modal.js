@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import ModalOverlay from "../modal-overlay";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import style from "./modal.module.css";
 const Modal = props => {
     const refModalBox = useRef();
     const [widthModalBox, setWidthModalBox] = useState(-500);
@@ -35,7 +36,7 @@ const Modal = props => {
     return (
         <>
             <ModalOverlay visible={visible}>
-                <div ref={refModalBox} className="modalBox" style={{ marginTop: heightModalBox, marginLeft: widthModalBox }}>
+                <div ref={refModalBox} className={style.modalBox} style={{ marginTop: heightModalBox, marginLeft: widthModalBox }}>
                     {props.children}
                 </div>
             </ModalOverlay>
