@@ -5,12 +5,12 @@ import Modal from "../modal";
 const IngredientDetails = props => {
     return (
         <>
-            <Modal visible={props.visible}>
+            <Modal onClose={props.onClose}>
                 <div className={style.ingredientDetailsBox}>
                     <div className={`${style.title} pt-10 pl-10 pr-10`}>
                         <p className="textGrey text text_type_main-large">Детали ингредиента</p>
                         <div className={style.closeIconBox}
-                            onClick={() => props.setVisible(false)}>
+                            onClick={() => props.onClose()}>
                             <CloseIcon />
                         </div>
                     </div>
@@ -41,8 +41,6 @@ const IngredientDetails = props => {
     )
 };
 IngredientDetails.propTypes = {
-    visible: PropTypes.bool.isRequired,
-    setVisible: PropTypes.func
-
+    onClose:PropTypes.func.isRequired
 };
 export default IngredientDetails;

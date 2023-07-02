@@ -9,18 +9,19 @@ const BurgerIngredients = props => {
         { name: 'Соусы', type: 'sauce' },
         { name: 'Начинки', type: 'main' }];
     const [current, setCurrent] = useState(ingredientsTypes[0].type);
-    const [ingredientDetails, setIngredientDetails] = useState({ visible: false, parameters: null });
-    const setVisibleIngredientDetails = value => setIngredientDetails({ visible: value, parameters: ingredientDetails.parameters });
-
-    useEffect(() => {
-    }, []);
+    const [details, setDetails] = useState({ visible: false, data: null });
+    const setDetailsOpen = () => {
+        setDetails({ ...details, visible: true });
+    };
+    const setDetailsClose = () => {
+        setDetails({ ...details, visible: false });
+    };
     return (
         <>
-            <IngredientDetails
-                visible={ingredientDetails.visible}
-                parameters={ingredientDetails.parameters}
-                setVisible={setVisibleIngredientDetails}
-            />
+            {details.visible && (<IngredientDetails
+                onClose={setDetailsClose}
+                parameters={details.data}
+            />)}
             <div className={`${style.burgerIngredients} mt-10`}>
 
                 <p className="textGrey text text_type_main-large"> Соберите бургер</p>
@@ -41,11 +42,12 @@ const BurgerIngredients = props => {
                             <p className="textGrey text text_type_main-medium mt-10">{index.name}</p>
                             <div className={`${style.ingredientCell} mt-6`}>
                                 {props.ingredientsList.filter(ingredient => ingredient.type === index.type).map((i, count) => {
-                                    const countOfIngredient = 1//selectedIngredients.filter(j => j.id === i._id).length;
+                                    const select = props.selectedIngredients.find(j => j._id === i._id);
+                                    const countOfIngredient = select !== undefined && select.hasOwnProperty('count') ? select.count : 0;
                                     return (
                                         <div key={i._id} className={`${count % 2 === 1 ? 'ml-6' : 'ml-4'}`}
                                             onClick={() => {
-                                                setIngredientDetails({ visible: true, parameters: i });
+                                                setDetails({ visible: true, data: i });
                                             }}>
                                             <Counter extraClass={
                                                 `${style.counterIngredientCell} ${countOfIngredient === 0 ? style.counterIngredientCellHide : 'null'}`
@@ -85,6 +87,21 @@ BurgerIngredients.propTypes = {
         image_large: PropTypes.string.isRequired,
         __v: PropTypes.number.isRequired
     })).isRequired,
-    setSelectedIngredients: PropTypes.func
+    setSelectedIngredients: PropTypes.func.isRequired,
+    selectedIngredients: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        proteins: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired,
+        calories: PropTypes.number.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+        __v: PropTypes.number.isRequired,
+        count: PropTypes.number
+    })).isRequired
 };
 export default BurgerIngredients;

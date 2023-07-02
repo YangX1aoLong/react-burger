@@ -2,34 +2,48 @@ import { useEffect, useState } from 'react';
 import AppHeader from '../app-header';
 import BurgerConstructor from '../burger-constructor';
 import BurgerIngredients from '../burger-ingredients';
+import { getData } from '../../utils/get-data';
 
-const urlData = "https://norma.nomoreparties.space/api/ingredients";
 function App() {
-  interface IngredientIdCount {
-    id: string,
-    count:number
+  interface Ingredients {
+    _id: string,
+    name: string,
+    type: string,
+    proteins: number,
+    fat: number,
+    carbohydrates: number,
+    calories: number,
+    price: number,
+    image: string,
+    image_mobile: string,
+    image_large: string,
+    __v: number,
+    count?: number
   };
-  const [ingredientsList, setIngredientsList] = useState([]);
-  const [getSelectedIngredients, setSelectedIngredients] = useState<IngredientIdCount[]>([]);
-  const selectedIngredients = (value: Array<IngredientIdCount>) => setSelectedIngredients(value)
-  const getData = () => {
-    fetch(urlData)
-      .then(res => res.json())
-      .then(data => setIngredientsList(data.data))
-      .catch(e => alert('Cant download ingredients data'))
+  interface Status {
+    isLoading: boolean,
+    error: string
   };
+
+  const [getIngredientsList, setIngredientsList] = useState<Ingredients[]>([]);
+  const [getSelectedIngredients, setSelectedIngredients] = useState<Ingredients[]>([]);
+  const [getStatusData, setStatusData] = useState({ isLoading: false, error: "no error" });
+  const ingredientsList = (value: Array<Ingredients>) => setIngredientsList(value);
+  const selectedIngredients = (value: Array<Ingredients>) => setSelectedIngredients(value);
+  const statusData = (value: Status) => setStatusData(value);
+
   useEffect(() => {
-    getData();
+    getData(ingredientsList, selectedIngredients, getStatusData, statusData);
   }, []);
   return (
     <>
-      <AppHeader/>
+      <AppHeader />
       <div className='container'>
         <div className='burgerIngredientsBox'>
-          <BurgerIngredients ingredientsList={ingredientsList} setSelectedIngredients={selectedIngredients}/>
+          <BurgerIngredients ingredientsList={getIngredientsList} setSelectedIngredients={selectedIngredients} selectedIngredients={getSelectedIngredients} />
         </div>
         <div className='ml-10'>
-          <BurgerConstructor ingredientsList={ingredientsList} selectedIngredients={getSelectedIngredients}/>
+          <BurgerConstructor selectedIngredients={getSelectedIngredients} />
         </div>
       </div>
     </>

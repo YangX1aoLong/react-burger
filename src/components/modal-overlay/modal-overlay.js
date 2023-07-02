@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
-const ModalOverlay = props => {
+const ModalOverlay = (props) => {
     return(
-        <div className="modalOverlayBox" style={{display:props.visible?'flex':'none'}}>{props.children}</div>
+        <div className="modalOverlayBox">{props.children}</div>
     )
 }
 ModalOverlay.propTypes = {
-    visible:PropTypes.bool.isRequired
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
+    
 }
 export default ModalOverlay;
