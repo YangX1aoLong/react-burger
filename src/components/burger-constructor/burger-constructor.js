@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import OrderDetails from "../order-details";
-import style from "./burger-constructor.module.css"
-import PropTypes, { number } from 'prop-types'
+import style from "./burger-constructor.module.css";
+import PropTypes, { number } from 'prop-types';
 
 const BurgerConstructor = props => {
   const [order, setOrder] = useState(false)
