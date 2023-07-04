@@ -42,8 +42,9 @@ const BurgerIngredients = props => {
                             <p className="textGrey text text_type_main-medium mt-10">{index.name}</p>
                             <div className={`${style.ingredientCell} mt-6`}>
                                 {props.ingredientsList.filter(ingredient => ingredient.type === index.type).map((i, count) => {
-                                    const select = props.selectedIngredients.find(j => j._id === i._id);
-                                    const countOfIngredient = select !== undefined && select.hasOwnProperty('count') ? select.count : 0;
+                                    const select = props.selectedIngredients.mains.find(j => j._id === i._id);
+                                    let countOfIngredient = select !== undefined && select.hasOwnProperty('count') ? select.count : 0;
+                                    if (i._id === props.selectedIngredients.bun._id) countOfIngredient = 1;
                                     return (
                                         <div key={i._id} className={`${count % 2 === 1 ? 'ml-6' : 'ml-4'}`}
                                             onClick={() => {
@@ -88,20 +89,38 @@ BurgerIngredients.propTypes = {
         __v: PropTypes.number.isRequired
     })).isRequired,
     setSelectedIngredients: PropTypes.func.isRequired,
-    selectedIngredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number.isRequired,
-        count: PropTypes.number
-    })).isRequired
+    selectedIngredients: PropTypes.shape({
+        bun: PropTypes.oneOfType([PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            proteins: PropTypes.number.isRequired,
+            fat: PropTypes.number.isRequired,
+            carbohydrates: PropTypes.number.isRequired,
+            calories: PropTypes.number.isRequired,
+            price: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
+            image_mobile: PropTypes.string.isRequired,
+            image_large: PropTypes.string.isRequired,
+            __v: PropTypes.number.isRequired,
+            count: PropTypes.number
+        }), PropTypes.any]),
+        mains: PropTypes.arrayOf(PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            proteins: PropTypes.number.isRequired,
+            fat: PropTypes.number.isRequired,
+            carbohydrates: PropTypes.number.isRequired,
+            calories: PropTypes.number.isRequired,
+            price: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
+            image_mobile: PropTypes.string.isRequired,
+            image_large: PropTypes.string.isRequired,
+            __v: PropTypes.number.isRequired,
+            count: PropTypes.number
+        })).isRequired
+    })
+
 };
 export default BurgerIngredients;

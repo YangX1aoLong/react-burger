@@ -1,11 +1,11 @@
 const urlData = "https://norma.nomoreparties.space/api/ingredients";
 const defaultSelectedIngredients = (data) => {
     let selectData = [];
-    selectData = ([...selectData, data.find(i => i.type === "bun")]);
+    const bun = ( data.find(i => i.type === "bun"));
     selectData = ([...selectData, data.find(i => i.type === "sauce")]);
     selectData = [...selectData, ...data.filter(i => i.type === "main")];
     for (let i = 0; i < selectData.length; i++) selectData[i].count = 1;
-    return selectData;
+    return {bun:bun,mains:selectData};
 };
 export const getData = (ingerdientList, selectedIngredients, status, setStatus) => {
     setStatus({ ...status, isLoading: true })
