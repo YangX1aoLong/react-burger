@@ -1,0 +1,38 @@
+.ingredientDetailsBox {
+    width: 720px;
+    height: 539px;
+}
+
+.title {
+    display: flex;
+    width: 640px;
+    height: 64px;
+    text-emphasis-color: #F2F2F3;
+
+}
+
+.natritionBox {
+    display: flex;
+    width: 516px;
+    height: 56px;
+    padding-left: 84px;
+}
+
+.image {
+    width: 520px;
+    height: 240px;
+    padding-left: 105px;
+}
+
+.natrition {
+    width: 120px;
+    height: 56px;
+}
+
+.closeIconBox {
+    margin-left: auto;
+    margin-right: 0px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
