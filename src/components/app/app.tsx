@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import AppHeader from '../app-header';
 import BurgerConstructor from '../burger-constructor';
 import BurgerIngredients from '../burger-ingredients';
-
+//t
 const urlData = "https://norma.nomoreparties.space/api/ingredients";
 function App() {
   interface IngredientIdCount {
