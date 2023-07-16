@@ -1,21 +1,30 @@
-const urlData = "https://norma.nomoreparties.space/api/ingredients";
-const defaultSelectedIngredients = (data) => {
-    let selectData = [];
-    const bun = ( data.find(i => i.type === "bun"));
-    selectData = ([...selectData, data.find(i => i.type === "sauce")]);
-    selectData = [...selectData, ...data.filter(i => i.type === "main")];
-    for (let i = 0; i < selectData.length; i++) selectData[i].count = 1;
-    return {bun:bun,mains:selectData};
-};
-export const getData = (ingerdientList, selectedIngredients, status, setStatus) => {
-    setStatus({ ...status, isLoading: true })
-    fetch(urlData)
-        .then((res) => res.json())
-        .then((data) => {
-            ingerdientList(data.data);
-            selectedIngredients(defaultSelectedIngredients(data.data));
-        })
-        .catch((e) => setStatus({ ...status, error: e }))
-        .finally(setStatus({ ...status, isLoading: false }));
+const urlData = "https://norma.nomoreparties.space/api";
+export const fetchIngredients = () => {    
+    return fetch(`${urlData}/ingredients`)
+      .then(checkReponse)
+      .then((data) => {
+         if (data?.success) return data.data;
+         return Promise.reject(data);
+      });
 };
 
+const checkReponse = (res) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export const fetchOrder = (data) =>{
+return fetch(`${urlData}/orders`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  body: JSON.stringify({
+    ingredients: data,
+  }),
+})
+  .then(checkReponse)
+  .then((data) => {
+    if (data?.success) return data;
+    return Promise.reject(data);
+  });
+}
