@@ -1,15 +1,18 @@
 import { useState } from "react";
 import {
   ConstructorElement,
-  DragIcon,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details";
 import style from "./burger-constructor.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd/dist/hooks";
+import { addIngredient } from "../../services/actions/burger-constructor";
 
+import ConstructorBox from "../constructor-box";
 const BurgerConstructor = () => {
+  const dispatch = useDispatch();
   const [order, setOrder] = useState(false);
   const selectedIngredients = useSelector((store) => store.burgerConstructor);
   const summPrice = () => {
@@ -26,8 +29,15 @@ const BurgerConstructor = () => {
   const orderOpen = () => {
     setOrder(true);
   };
+  const [, dropRef] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch(addIngredient(item.ingredient));
+    },
+  });
+
   return (
-    <div className={`${style.burgerConstructor} pt-25 pl-4`}>
+    <div ref={dropRef} className={`${style.burgerConstructor} pt-25 pl-4`}>
       {order && <OrderDetails onClose={orderClose} />}
       <div className={`${style.elementBoxEndBurgerConstructor} pt-4`}>
         <ConstructorElement
@@ -44,21 +54,11 @@ const BurgerConstructor = () => {
           let interval = "pt-4";
           if (counter === 0) interval = "pt-0";
           return (
-            <div
-              key={counter}
-              className={`${style.elementBoxBurgerConstructor} ${interval}`}
-            >
-              <div className="pt-7">
-                <DragIcon></DragIcon>
-              </div>
-              <div className={`${style.elemetBurgerConstructor} pl-6`}>
-                <ConstructorElement
-                  text={index.name}
-                  price={index.price}
-                  thumbnail={index.image}
-                />
-              </div>
-            </div>
+            <ConstructorBox
+              key={Math.random()}
+              interval={interval}
+              element={index}
+            />
           );
         })}
       </div>

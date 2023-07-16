@@ -14,18 +14,15 @@ const OrderDetails = (props) => {
       buns = [selectedIngredients.bun._id, selectedIngredients.bun._id];
     dispatch(
       getOrder([
+        ...buns,
         ...selectedIngredients.mains.map((i) => {
           return i._id;
         }),
-        ...buns,
       ])
     );
   }, []);
 
   const orderDetails = useSelector((store) => store.orderDetail);
-    useEffect(()=>{
-      console.log(orderDetails.data);
-    })
   return (
     <>
       <Modal onClose={props.onClose}>

@@ -1,6 +1,7 @@
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
+  SORT_INGREDIENT,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -22,8 +23,22 @@ export const burgerConstructor = (state = initialState, action) => {
           return state;
       }
     case DELETE_INGREDIENT:
-      console.log(state.action);
-      return state;
+      return {
+        ...state,
+        mains: state.mains.filter((i) => i.id !== action.payload),
+      };
+    case SORT_INGREDIENT:
+      const mains = [];
+      for (let i = 0; i < state.mains.length; i++) {
+        if (state.mains[i].id === action.payload.ingredient.id)
+          mains.push(action.payload.hoverIngredient);
+        else if (state.mains[i].id === action.payload.hoverIngredient.id)
+          mains.push(action.payload.ingredient);
+        else mains.push(state.mains[i]);
+      }
+      console.log(mains);
+
+      return { ...state, mains: mains };
     default:
       return state;
   }
