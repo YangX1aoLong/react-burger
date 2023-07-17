@@ -1,8 +1,8 @@
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details";
 import style from "./burger-ingredients.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { unselectIngredient } from "../../services/actions/selected-ingredient";
 import IngredientBox from "../ingredient-box";
 
@@ -15,15 +15,46 @@ const BurgerIngredients = () => {
   ];
   const [current, setCurrent] = useState(ingredientsTypes[0].type);
   const [details, setDetails] = useState(false);
+  const { ingredients } = useSelector(
+    (store) => ({ ingredients: store.ingredients }),
+    shallowEqual
+  );
   const closeDetails = () => {
     dispatch(unselectIngredient());
     setDetails(false);
   };
+
   const openDetails = () => {
     setDetails(true);
   };
 
-  const ingredients = useSelector((store) => store.ingredients);
+  const containerRef = useRef();
+  const refs = useRef([]);
+
+  const handleScroll = () => {
+    const typesMap = [0, 1, 2];
+    const containerPosition = containerRef.current.getBoundingClientRect().top;
+    const categoriesPositions = {};
+    Object.keys(typesMap).map(
+      (type) =>
+        (categoriesPositions[type] = Math.abs(
+          containerPosition - refs.current[type].getBoundingClientRect().top
+        ))
+    );
+
+    const minCategoryPosition = Math.min(...Object.values(categoriesPositions));
+    const currentTab = Object.keys(categoriesPositions).find(
+      (key) => minCategoryPosition === categoriesPositions[key]
+    );
+    setCurrent(ingredientsTypes[currentTab].type);
+  };
+
+  const chooseTab = (e) => {
+    refs.current[
+      ingredientsTypes.findIndex((i) => i.type === e)
+    ].scrollIntoView();
+  };
+
   return (
     <>
       {details && <IngredientDetails onClose={closeDetails} />}
@@ -36,8 +67,9 @@ const BurgerIngredients = () => {
                 key={index.type}
                 value={index.type}
                 active={current === index.type}
-                onClick={() => {
+                onClick={(e) => {
                   setCurrent(index.type);
+                  chooseTab(e);
                 }}
               >
                 {index.name}
@@ -45,10 +77,20 @@ const BurgerIngredients = () => {
             );
           })}
         </div>
-        <div className={`${style.ingredientsWindow}`}>
+        <div
+          className={`${style.ingredientsWindow}`}
+          onScroll={handleScroll}
+          ref={containerRef}
+        >
           {ingredientsTypes.map((index, i) => {
             return (
-              <div key={i}>
+              <div
+                key={index.type}
+                ref={(ref) => {
+                  if (refs.current.length < ingredientsTypes.length)
+                    refs.current.push(ref);
+                }}
+              >
                 <p className="textGrey text text_type_main-medium mt-10">
                   {index.name}
                 </p>
@@ -58,7 +100,7 @@ const BurgerIngredients = () => {
                     .map((i, count) => {
                       return (
                         <IngredientBox
-                          key={Math.random()}
+                          key={i._id}
                           ingredient={i}
                           count={count}
                           onOpen={openDetails}

@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details";
 import style from "./burger-constructor.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks";
 import { addIngredient } from "../../services/actions/burger-constructor";
 
@@ -14,7 +14,10 @@ import ConstructorBox from "../constructor-box";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const [order, setOrder] = useState(false);
-  const selectedIngredients = useSelector((store) => store.burgerConstructor);
+  const { selectedIngredients } = useSelector(
+    (store) => ({ selectedIngredients: store.burgerConstructor }),
+    shallowEqual
+  );
   const summPrice = () => {
     let summ = 0;
     for (let i = 0; i < selectedIngredients.mains.length; i++)
@@ -84,7 +87,7 @@ const BurgerConstructor = () => {
             htmlType="button"
             size="large"
             onClick={() => {
-              orderOpen();
+              if (selectedIngredients.bun?._id) orderOpen();
             }}
           >
             Оформить заказ

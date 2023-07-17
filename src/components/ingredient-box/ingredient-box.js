@@ -3,13 +3,17 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ingredient-box.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { selectIngredient } from "../../services/actions/selected-ingredient";
 import { useDrag } from "react-dnd/dist/hooks";
 import PropTypes from "prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 const IngredientBox = (props) => {
   const dispatch = useDispatch();
-  const constructor = useSelector((store) => store.burgerConstructor);
+  const { constructor } = useSelector(
+    (store) => ({ constructor: store.burgerConstructor }),
+    shallowEqual
+  );
 
   const countIngredient = (ingredient) => {
     let count = 0;
@@ -23,7 +27,7 @@ const IngredientBox = (props) => {
   const countOfIngredient = countIngredient(props.ingredient);
   const [, dragRef] = useDrag({
     type: "ingredient",
-    item: {ingredient:props.ingredient},
+    item: { ingredient: props.ingredient },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),
@@ -67,24 +71,8 @@ const IngredientBox = (props) => {
   );
 };
 IngredientBox.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
-    count: PropTypes.number,
-  }).isRequired,
+  ingredient: ingredientPropType,
   count: PropTypes.number.isRequired,
-  onOpen: PropTypes.func.isRequired
+  onOpen: PropTypes.func.isRequired,
 };
 export default IngredientBox;
-
-

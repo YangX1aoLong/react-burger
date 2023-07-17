@@ -2,12 +2,20 @@ import Modal from "../modal";
 import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import acceptIcon from "../../image/accept.png";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../services/actions/order-detail";
 import { useEffect } from "react";
+import { deleteAllIngredient } from "../../services/actions/burger-constructor";
 const OrderDetails = (props) => {
   const dispatch = useDispatch();
-  const selectedIngredients = useSelector((store) => store.burgerConstructor);
+  const { selectedIngredients } = useSelector(
+    (store) => ({ selectedIngredients: store.burgerConstructor }),
+    shallowEqual
+  );
+  const { orderDetails } = useSelector(
+    (store) => ({ orderDetails: store.orderDetail }),
+    shallowEqual
+  );
   useEffect(() => {
     let buns = [];
     if (selectedIngredients.bun._id)
@@ -20,9 +28,9 @@ const OrderDetails = (props) => {
         }),
       ])
     );
+    dispatch(deleteAllIngredient());
   }, []);
 
-  const orderDetails = useSelector((store) => store.orderDetail);
   return (
     <>
       <Modal onClose={props.onClose}>

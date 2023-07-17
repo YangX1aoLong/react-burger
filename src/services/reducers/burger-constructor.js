@@ -1,5 +1,6 @@
 import {
   ADD_INGREDIENT,
+  DELETE_ALL_INGREDIENT,
   DELETE_INGREDIENT,
   SORT_INGREDIENT,
 } from "../actions/burger-constructor";
@@ -36,9 +37,9 @@ export const burgerConstructor = (state = initialState, action) => {
           mains.push(action.payload.ingredient);
         else mains.push(state.mains[i]);
       }
-      console.log(mains);
-
       return { ...state, mains: mains };
+    case DELETE_ALL_INGREDIENT:
+      return initialState;
     default:
       return state;
   }

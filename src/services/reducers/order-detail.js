@@ -17,7 +17,7 @@ export const orderDetail = (state = initialState, action) => {
         ...state,
         isLoading: true,
       };
-    case GET_ORDER_SUCCESS:
+    case GET_ORDER_SUCCESS:      
       return {
         ...state,
         isLoading: false,
@@ -25,7 +25,7 @@ export const orderDetail = (state = initialState, action) => {
       };
     case GET_ORDER_ERROR:
       return {
-        ...state,
+        ...initialState,
         error: action.payload,
       };
     default:
