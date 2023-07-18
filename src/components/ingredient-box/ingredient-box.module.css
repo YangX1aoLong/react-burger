@@ -1,15 +1,4 @@
-.burgerIngredients {
 
-}
-.ingredientsWindow{
-    overflow-x: hidden;
-        overflow-y: auto;
-        width: 600px;
-        height: 67vh;
-}
-.tabs {
-    display: flex;
-}
 
 .ingredientCell {
     cursor: pointer;

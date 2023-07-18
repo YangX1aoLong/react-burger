@@ -1,0 +1,9 @@
+.elemetBurgerConstructor {
+    width: 600px;
+}
+.elementBoxBurgerConstructor {
+    display: flex;
+}
+.dragIcon{
+    cursor: pointer;
+}

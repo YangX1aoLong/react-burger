@@ -12,17 +12,11 @@
     height: 40vh;
 }
 
-.elementBoxBurgerConstructor {
-    display: flex;
+.elementBoxEndBurgerConstructor {
+    padding-left: 50px;
 }
 
-.elementBoxEndBurgerConstructor {
-    padding-left: 50px ;
-}
-.elemetBurgerConstructor{
-    width: 600px;
-}
-.orderBox{
+.orderBox {
     margin-left: auto;
     margin-right: 0px;
     width: 420px;
