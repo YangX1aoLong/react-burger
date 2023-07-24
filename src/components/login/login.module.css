@@ -1,0 +1,17 @@
+.loginBox {
+    width: 480px;
+    height: 430px;
+    background: #131316;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+}
+.buttonBox{
+    margin-left: 180px;
+
+}
+.containerLink{
+    display: flex;
+}

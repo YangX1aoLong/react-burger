@@ -1,0 +1,19 @@
+.registrationBox {
+    width: 480px;
+    height: 478px;
+    background: #131316;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+
+}
+.buttonBox {
+    margin-left: 110px;
+
+}
+.containerLink {
+    display: flex;
+    margin-left: 105px;
+}
