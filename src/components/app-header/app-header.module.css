@@ -6,6 +6,7 @@
 }
 .navBox {
     display: flex;
+    cursor: pointer;
 }
 
 .contentBox { 

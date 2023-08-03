@@ -1,6 +1,5 @@
+import Ingredient from "../components/ingredient";
+
 export const IngredientFullPage = () => {
-    return (
-        <>
-        IngredientFullPage</>
-    )
-}
+  return <Ingredient />;
+};

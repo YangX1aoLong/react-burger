@@ -1,0 +1,15 @@
+.accountBox {
+    width: 1077px;
+    height: 522px;
+    background: #161313;
+    margin-left: 320px;
+    margin-top: 120px;
+    display: flex;
+}
+
+.navigation {
+    width: 320px;
+    height: 64px;
+
+
+}
