@@ -4,30 +4,43 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./forgot-password.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getForgotPassword } from "../../services/actions/forgot-password";
+import { useDispatch } from "react-redux";
 const ForgotPassword = () => {
-    const navigate = useNavigate();
-    const restorePassword = () =>{
-        navigate("/reset-password");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const dispatch =useDispatch();
+  const restorePassword = () => {
+    if (email !== "") {
+      dispatch(getForgotPassword(email));
+      navigate("/reset-password");
     }
+  };
   return (
     <div className={`${style.forgotPasswordBox}`}>
-      <p className="textCenter textGrey text text_type_main-medium">Восстановление пароля</p>
+      <p className="textCenter textGrey text text_type_main-medium">
+        Восстановление пароля
+      </p>
       <div className="mt-6">
-        <Input placeholder="Укажите e-mail" />
+        <Input
+          placeholder="Укажите e-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
 
       <div className={`${style.buttonBox} mt-6`}>
-        <Button onClick={restorePassword}>Восстановить</Button>
+        <Button htmlType="button" onClick={restorePassword}>
+          Восстановить
+        </Button>
       </div>
 
       <div className={`${style.containerLink} mt-28`}>
         <p className="textDarkGrey text text_type_main-default">
           Вспомнили пароль?
         </p>
-        <Link
-          to="/login"
-          className="ml-2 textLink text text_type_main-default"
-        >
+        <Link to="/login" className="ml-2 textLink text text_type_main-default">
           Войти
         </Link>
       </div>

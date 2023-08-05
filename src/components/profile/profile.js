@@ -1,29 +1,33 @@
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-const Profile = () => {
+import { useState } from "react";
+const Profile = (props) => {
+  const [name,setName] = useState(props.name);
+  const [email,setEmail] = useState(props.email);
+  const [password,setPassword] = useState("")
   return (
     <div>
       <div className="mt-6">
         <Input
           placeholder="Имя"
           icon="EditIcon"
-          value="Имя"
-          onChange={(e) => (e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className="mt-6">
         <Input
           placeholder="Логин"
           icon="EditIcon"
-          value="Логин"
-          onChange={(e) => (e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="mt-6">
         <Input
           placeholder="Пароль"
           icon="EditIcon"
-          value="Пароль"
-          onChange={(e) => (e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
     </div>

@@ -4,10 +4,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./reset-password.module.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { getResetPassword } from "../../services/actions/reset-password";
+import { hidePassword, showPassword } from "../../utils/input-settings";
 const ResetPassword = () => {
-  const onIconClick = () =>{
-    console.log('click')
-  }
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
+  const [passwordSetting, setPasswordSetting] = useState(hidePassword);
+  const onIconClick = () => {
+    if (passwordSetting.icon === "HideIcon") {
+      setPasswordSetting(showPassword);
+    } else setPasswordSetting(hidePassword);
+  };
+  const saveNewPassword = () => {
+    getResetPassword(password, token);
+  };
   return (
     <div className={`${style.forgotPasswordBox}`}>
       <p className="textCenter textGrey text text_type_main-medium">
@@ -16,16 +27,25 @@ const ResetPassword = () => {
       <div className="mt-6">
         <Input
           placeholder="Введите новый пароль"
-          icon={"HideIcon"}
+          type={passwordSetting.type}
+          icon={passwordSetting.icon}
           onIconClick={onIconClick}
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
       </div>
       <div className="mt-6">
-        <Input placeholder="Введите код из письма" />
+        <Input
+          placeholder="Введите код из письма"
+          onChange={(e) => setToken(e.target.value)}
+          value={token}
+        />
       </div>
 
       <div className={`${style.buttonBox} mt-6`}>
-        <Button>Сохранить</Button>
+        <Button onClick={saveNewPassword} htmlType="button">
+          Сохранить
+        </Button>
       </div>
 
       <div className={`${style.containerLink} mt-28`}>

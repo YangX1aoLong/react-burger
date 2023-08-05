@@ -3,39 +3,52 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { hidePassword, showPassword } from "../../utils/input-settings";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getLogin } from "../../services/actions/login";
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordSetting, setPasswordSetting] = useState(hidePassword);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onIconClick = () => {
-    console.log("iconClick");
+    if (passwordSetting.icon === "HideIcon") {
+      setPasswordSetting(showPassword);
+    } else setPasswordSetting(hidePassword);
   };
+  const onLogin = () => {
+    dispatch(getLogin(email, password));
+    
+  };
+
   return (
     <div className={`${style.loginBox}`}>
       <p className="textCenter textGrey text text_type_main-medium">Вход</p>
       <div className="mt-6">
         <Input
-          //   type={"text"}
           placeholder="E-mail"
-          //   onChange={(e) => setValue(e.target.value)}
-          //   value={value}
-          //   name={"name"}
-          //   error={false}
           icon="none"
-          //   ref={inputRef}
-          //   onIconClick={onIconClick}
-          //   errorText={"Ошибка"}
-          //   size={"default"}
-          //   extraClass="ml-1"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="mt-6">
         <Input
           placeholder="Пароль"
-          icon={"HideIcon"}
+          type={passwordSetting.type}
+          icon={passwordSetting.icon}
           onIconClick={onIconClick}
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
       </div>
       <div className={`${style.buttonBox} mt-6`}>
-        <Button>Войти</Button>
+        <Button htmlType="button" onClick={onLogin}>
+          Войти
+        </Button>
       </div>
       <div className={`${style.containerLink} mt-28`}>
         <p className={`ml-10 textDarkGrey text text_type_main-default`}>
