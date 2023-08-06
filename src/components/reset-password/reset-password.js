@@ -3,21 +3,27 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./reset-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getResetPassword } from "../../services/actions/reset-password";
 import { hidePassword, showPassword } from "../../utils/input-settings";
+import { useDispatch } from "react-redux";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [passwordSetting, setPasswordSetting] = useState(hidePassword);
+  const dispath = useDispatch();
+  const navigate = useNavigate();
   const onIconClick = () => {
     if (passwordSetting.icon === "HideIcon") {
       setPasswordSetting(showPassword);
     } else setPasswordSetting(hidePassword);
   };
   const saveNewPassword = () => {
-    getResetPassword(password, token);
+    dispath(getResetPassword(password, token)).then((e) => {
+      if (e.payload?.success) navigate("/login");
+      else alert(e.payload?.message);
+    });
   };
   return (
     <div className={`${style.forgotPasswordBox}`}>

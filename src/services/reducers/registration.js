@@ -1,4 +1,4 @@
-import { saveAccessToken, saveRefreshToken } from "../../utils/localStorage";
+import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/localStorage";
 import {
   GET_REGISTRATION_ERROR,
   GET_REGISTRATION_REQUEST,
@@ -19,8 +19,8 @@ export const registration = (state = initialState, action) => {
         isLoading: true,
       };
     case GET_REGISTRATION_SUCCESS:
-      saveAccessToken(action.payload?.accessToken);
-      saveRefreshToken(action.payload?.refreshToken);
+      saveStorageAccessToken(action.payload?.accessToken);
+      saveStorageRefreshToken(action.payload?.refreshToken);
       return {
         ...state,
         isLoading: false,

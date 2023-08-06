@@ -23,14 +23,17 @@ export const fetchGetAuth = (token) => {
     });
 };
 
-export const fetchUpdateAuth = (token) => {
+export const fetchUpdateAuth = (token,name,email,passowrd) => {
   return fetch(`${urlData}/auth/user?authorization=${token}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      authorization: token,
     },
     body: JSON.stringify({
-      authorization: token,
+      name:name,
+      email:email,
+      passowrd:passowrd,
     }),
   })
     .then(checkReponse)

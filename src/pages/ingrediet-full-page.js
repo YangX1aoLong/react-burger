@@ -1,5 +1,7 @@
+import { useParams } from "react-router-dom";
 import Ingredient from "../components/ingredient";
 
 export const IngredientFullPage = () => {
-  return <Ingredient />;
+  const { id } = useParams();
+  return <Ingredient id={id} />;
 };

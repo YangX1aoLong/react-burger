@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
-import { getAccessToken } from "../utils/localStorage";
+import { getStorageAccessToken } from "../utils/localStorage";
 export const ProtectedRouteElement = (props) => {
     const nameElement = props.children?.type?.name;
-    const accessToken = getAccessToken();
+    const accessToken = getStorageAccessToken();
     if (accessToken === null && nameElement === "ProfilePage")
     return <Navigate to="/login" replace />;
     else if (accessToken !== null && (nameElement === "LoginPage" || 

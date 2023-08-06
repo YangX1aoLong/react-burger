@@ -1,4 +1,4 @@
-import { clearToken } from "../../utils/localStorage";
+import { clearStorage } from "../../utils/localStorage";
 import {
   GET_LOGOUT_ERROR,
   GET_LOGOUT_REQUEST,
@@ -19,7 +19,7 @@ export const logout = (state = initialState, action) => {
         isLoading: true,
       };
     case GET_LOGOUT_SUCCESS:
-      clearToken();
+      clearStorage();
       return {
         ...state,
         isLoading: false,

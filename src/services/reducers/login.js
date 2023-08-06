@@ -1,4 +1,4 @@
-import { saveAccessToken, saveRefreshToken } from "../../utils/localStorage";
+import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/localStorage";
 import {
   GET_LOGIN_ERROR,
   GET_LOGIN_REQUEST,
@@ -19,8 +19,8 @@ export const login = (state = initialState, action) => {
         isLoading: true,
       };
     case GET_LOGIN_SUCCESS:
-        saveAccessToken(action.payload?.accessToken);
-        saveRefreshToken(action.payload?.refreshToken);
+        saveStorageAccessToken(action.payload?.accessToken);
+        saveStorageRefreshToken(action.payload?.refreshToken);
       return {
         ...state,
         isLoading: false,

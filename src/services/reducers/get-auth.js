@@ -24,6 +24,7 @@ export const getAuth = (state = initialState, action) => {
         data: action.payload,
       };
     case GET_AUTH_ERROR:
+      console.log(action)
       return {
         ...initialState,
         error: action.payload,

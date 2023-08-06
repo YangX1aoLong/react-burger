@@ -19,6 +19,7 @@ const BurgerIngredients = () => {
     (store) => ({ ingredients: store.ingredients }),
     shallowEqual
   );
+
   const closeDetails = () => {
     dispatch(unselectIngredient());
     setDetails(false);

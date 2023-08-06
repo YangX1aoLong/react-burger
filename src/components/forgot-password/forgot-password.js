@@ -10,11 +10,13 @@ import { useDispatch } from "react-redux";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const restorePassword = () => {
     if (email !== "") {
-      dispatch(getForgotPassword(email));
-      navigate("/reset-password");
+      dispatch(getForgotPassword(email)).then((e) => {
+        if (e.payload?.success) navigate("/reset-password");
+        else alert(e.payload?.message);
+      });
     }
   };
   return (
@@ -26,6 +28,7 @@ const ForgotPassword = () => {
         <Input
           placeholder="Укажите e-mail"
           value={email}
+          type="email"
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>

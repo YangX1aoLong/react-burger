@@ -1,0 +1,23 @@
+.ingredientBox {
+    width: 640px;
+    height: 575px;
+    background: #131316;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.title{
+    height: 64px;
+}
+.image {
+    width: 520px;
+    height: 240px;
+    padding-left: 55px;
+}
+.natritionBox {
+    display: flex;
+    width: 516px;
+    height: 56px;
+    padding-left: 84px;
+}

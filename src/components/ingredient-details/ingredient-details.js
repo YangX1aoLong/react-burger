@@ -2,9 +2,12 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 const IngredientDetails = (props) => {
-  const ingredient = useSelector((store) => store.selectedIngredient);
+  const ingredient = useSelector(
+    (store) => store.selectedIngredient,
+    shallowEqual
+  );
   return (
     <>
       <Modal onClose={props.onClose}>

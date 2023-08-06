@@ -1,23 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Profile from "../profile";
 import style from "./account.module.css";
 import { useNavigate } from "react-router-dom";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getLogout } from "../../services/actions/logout";
-import { clearToken, getAccessToken, getRefreshToken } from "../../utils/localStorage";
-import { getAuth } from "../../services/actions/get-auth";
+import {
+  clearStorage,  
+  getStorageRefreshToken,
+} from "../../utils/localStorage";
+
 const points = ["Профиль", "История заказов", "Выход"];
 const Account = () => {
-  const [selectedPoint, setSelectedPoint] = useState(points[0]);  
+  const [selectedPoint, setSelectedPoint] = useState(points[0]);
   const navigate = useNavigate();
-  const dispath = useDispatch();
-    const { auth } = useSelector(
-      (store) => ({ auth: store.getAuth }),
-      shallowEqual
-    );
-  useEffect(() => {
-    dispath(getAuth(getAccessToken()));
-  }, []);
+
   const selectProfile = () => {
     setSelectedPoint(points[0]);
   };
@@ -26,10 +21,11 @@ const Account = () => {
   };
   const selectExit = () => {
     setSelectedPoint(points[2]);
-    getLogout(getRefreshToken());
-    clearToken();
+    getLogout(getStorageRefreshToken());
+    clearStorage();
     navigate("/");
   };
+
   return (
     <div className={`${style.accountBox}`}>
       <div>
@@ -61,7 +57,7 @@ const Account = () => {
           >
             {points[2]}
           </p>
-        </div>
+        </div>      
 
         <div className={`${style.about} mt-20`}>
           <p className="textDarkGrey text text_type_main-default pt-2">
@@ -70,7 +66,7 @@ const Account = () => {
         </div>
       </div>
       <div className="pl-15">
-        <Profile name={auth?.data?.user?.name} email={auth?.data?.user?.email} />
+        <Profile />
       </div>
     </div>
   );
