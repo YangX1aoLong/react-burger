@@ -7,12 +7,13 @@ import {
   clearStorage,  
   getStorageRefreshToken,
 } from "../../utils/local-storage";
+import { useDispatch } from "react-redux";
 
 const points = ["Профиль", "История заказов", "Выход"];
 const Account = () => {
   const [selectedPoint, setSelectedPoint] = useState(points[0]);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const selectProfile = () => {
     setSelectedPoint(points[0]);
   };
@@ -21,7 +22,7 @@ const Account = () => {
   };
   const selectExit = () => {
     setSelectedPoint(points[2]);
-    getLogout(getStorageRefreshToken());
+    dispatch(getLogout(getStorageRefreshToken()));
     clearStorage();
     navigate("/");
   };

@@ -24,14 +24,14 @@ const ForgotPassword = () => {
       <p className="textCenter textGrey text text_type_main-medium">
         Восстановление пароля
       </p>
-      <div className="mt-6">
+      <form className="mt-6">
         <Input
           placeholder="Укажите e-mail"
           value={email}
           type="email"
           onChange={(e) => setEmail(e.target.value)}
         />
-      </div>
+      </form>
 
       <div className={`${style.buttonBox} mt-6`}>
         <Button htmlType="button" onClick={restorePassword}>

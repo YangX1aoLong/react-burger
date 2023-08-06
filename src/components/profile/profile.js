@@ -64,7 +64,7 @@ const Profile = () => {
           }}
         />
       </div>
-      <div className="mt-6">
+      <form className="mt-6">
         <Input
           placeholder="Логин"
           icon="EditIcon"
@@ -74,8 +74,8 @@ const Profile = () => {
             setEdit(true);
           }}
         />
-      </div>
-      <div className="mt-6">
+      </form>
+      <form className="mt-6">
         <Input
           placeholder="Пароль"
           icon="EditIcon"
@@ -86,7 +86,7 @@ const Profile = () => {
             setEdit(true);
           }}
         />
-      </div>
+      </form>
       {edit && (
         <div className="container">
           <div className="mt-5 ml-25">

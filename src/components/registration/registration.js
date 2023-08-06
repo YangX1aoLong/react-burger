@@ -29,23 +29,23 @@ const Registration = () => {
       <p className="textCenter textGrey text text_type_main-medium">
         Регистрация
       </p>
-      <div className="mt-6">
+      <form className="mt-6">
         <Input
           placeholder="Имя"
           icon="none"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-      </div>
-      <div className="mt-6">
+      </form>
+      <form className="mt-6">
         <Input
           placeholder="E-mail"
           icon="none"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-      </div>
-      <div className="mt-6">
+      </form>
+      <form className="mt-6">
         <Input
           placeholder="Пароль"
           type={passwordSetting.type}
@@ -54,7 +54,7 @@ const Registration = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-      </div>
+      </form>
       <div className={`${style.buttonBox} mt-6`}>
         <Button htmlType="button" onClick={onRegistration}>
           Зарегистрироваться

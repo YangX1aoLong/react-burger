@@ -95,18 +95,19 @@ const BurgerConstructor = () => {
             htmlType="button"
             size="large"
             onClick={() => {
-              dispatch(getAuth).then((e) => {
-                if (e.payload?.success) {
-                  if (selectedIngredients.bun?._id) orderOpen();
-                } else if (e.payload?.message === "jwt expired") {
-                  dispatch(getRefreshToken(getStorageRefreshToken())).then(
-                    (e) => {
-                      if (e.payload?.success) orderOpen();
-                      else alert(e.payload?.message);
-                    }
-                  );
-                } else navigate("/login");
-              });
+              if (selectedIngredients.bun?._id)
+                dispatch(getAuth(getStorageAccessToken())).then((e) => {
+                  if (e.payload?.success) {
+                    orderOpen();
+                  } else if (e.payload?.message === "jwt expired") {
+                    dispatch(getRefreshToken(getStorageRefreshToken())).then(
+                      (e) => {
+                        if (e.payload?.success) orderOpen();
+                        else alert(e.payload?.message);
+                      }
+                    );
+                  } else navigate("/login");
+                });
             }}
           >
             Оформить заказ

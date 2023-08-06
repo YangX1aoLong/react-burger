@@ -39,7 +39,7 @@ const IngredientBox = (props) => {
       key={props.ingredient._id}
       className={`${props.count % 2 === 1 ? "ml-6" : "ml-4"}`}
       onClick={() => {
-        props.onOpen(true);
+     
         onSelectIngredient(props.ingredient);
       }}
     >
@@ -73,6 +73,6 @@ const IngredientBox = (props) => {
 IngredientBox.propTypes = {
   ingredient: ingredientPropType,
   count: PropTypes.number.isRequired,
-  onOpen: PropTypes.func.isRequired,
+ 
 };
 export default IngredientBox;

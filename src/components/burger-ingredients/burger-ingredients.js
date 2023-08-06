@@ -1,23 +1,25 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details";
 import style from "./burger-ingredients.module.css";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { unselectIngredient } from "../../services/actions/selected-ingredient";
 import IngredientBox from "../ingredient-box";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const BurgerIngredients = () => {
-
   const dispatch = useDispatch();
+  const containerRef = useRef();
+  const refs = useRef([]);
   const ingredientsTypes = [
     { name: "Булки", type: "bun" },
     { name: "Соусы", type: "sauce" },
     { name: "Начинки", type: "main" },
   ];
+  const location = useLocation();
   const [current, setCurrent] = useState(ingredientsTypes[0].type);
   const [details, setDetails] = useState(false);
-  const navigate = useNavigate();
+
   const { ingredients } = useSelector(
     (store) => ({ ingredients: store.ingredients }),
     shallowEqual
@@ -28,14 +30,10 @@ const BurgerIngredients = () => {
     setDetails(false);
   };
 
-  const openDetails = (id) => {
-navigate(`/ingredients/${id}`,{
-  test:"test"
-});
-  };
-
-  const containerRef = useRef();
-  const refs = useRef([]);
+  useEffect(() => {
+    const position = sessionStorage.getItem("scroll");
+    if (position !== null) setCurrent(position);
+  }, []);
 
   const handleScroll = () => {
     const typesMap = [0, 1, 2];
@@ -105,12 +103,17 @@ navigate(`/ingredients/${id}`,{
                     .filter((ingredient) => ingredient.type === index.type)
                     .map((i, count) => {
                       return (
-                        <IngredientBox
-                          key={i._id}
-                          ingredient={i}
-                          count={count}
-                          onOpen={()=> {openDetails(i._id)}}
-                        />
+                        <Link
+                          key={`${i._id}link`}
+                          to={`/ingredients/${i._id}`}
+                          state={{ backgroundLocation: location }}
+                        >
+                          <IngredientBox
+                            key={i._id}
+                            ingredient={i}
+                            count={count}
+                          />
+                        </Link>
                       );
                     })}
                 </div>

@@ -1,3 +1,4 @@
+import { Outlet } from "react-router";
 import BurgerConstructor from "../components/burger-constructor";
 import BurgerIngredients from "../components/burger-ingredients";
 import { DndProvider } from "react-dnd";
@@ -13,6 +14,7 @@ export const MainPage = () => {
           <BurgerConstructor />
         </div>
       </DndProvider>
+      <Outlet/>
     </div>
   );
 };
