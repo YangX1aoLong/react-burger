@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import AppHeader from '../app-header';
 import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import { MainPage } from '../../pages/main-page';
 import { NotFoundPage } from '../../pages/not-found-page';
 import { LoginPage } from '../../pages/login-page';
@@ -21,7 +21,6 @@ function App() {
 
   return (
     <>
-
       <BrowserRouter>
         <AppHeader />
         <Routes>

@@ -3,11 +3,14 @@ import style from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal";
 import { shallowEqual, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 const IngredientDetails = (props) => {
+  const navigate = useNavigate();
   const ingredient = useSelector(
     (store) => store.selectedIngredient,
     shallowEqual
   );
+
   return (
     <>
       <Modal onClose={props.onClose}>

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
-import { getStorageAccessToken } from "../utils/localStorage";
+import { getStorageAccessToken } from "../utils/local-storage";
 export const ProtectedRouteElement = (props) => {
     const nameElement = props.children?.type?.name;
     const accessToken = getStorageAccessToken();

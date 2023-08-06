@@ -1,4 +1,4 @@
-import { clearStorage } from "../../utils/localStorage";
+import { clearStorage } from "../../utils/local-storage";
 import {
   GET_LOGOUT_ERROR,
   GET_LOGOUT_REQUEST,

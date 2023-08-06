@@ -6,7 +6,7 @@ import { getLogout } from "../../services/actions/logout";
 import {
   clearStorage,  
   getStorageRefreshToken,
-} from "../../utils/localStorage";
+} from "../../utils/local-storage";
 
 const points = ["Профиль", "История заказов", "Выход"];
 const Account = () => {

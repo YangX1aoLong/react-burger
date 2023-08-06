@@ -8,7 +8,7 @@ import { getAuth } from "../../services/actions/get-auth";
 import {
   getStorageAccessToken,
   getStorageRefreshToken,
-} from "../../utils/localStorage";
+} from "../../utils/local-storage";
 import { getRefreshToken } from "../../services/actions/refresh-token";
 import { updateAuth } from "../../services/actions/update-auth";
 const Profile = () => {

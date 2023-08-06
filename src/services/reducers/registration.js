@@ -1,4 +1,4 @@
-import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/localStorage";
+import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/local-storage";
 import {
   GET_REGISTRATION_ERROR,
   GET_REGISTRATION_REQUEST,

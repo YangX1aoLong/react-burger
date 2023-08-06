@@ -14,7 +14,7 @@ import ConstructorBox from "../constructor-box";
 import {
   getStorageAccessToken,
   getStorageRefreshToken,
-} from "../../utils/localStorage";
+} from "../../utils/local-storage";
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "../../services/actions/get-auth";
 import { getRefreshToken } from "../../services/actions/refresh-token";
