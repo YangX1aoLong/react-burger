@@ -5,8 +5,10 @@ import style from "./burger-ingredients.module.css";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { unselectIngredient } from "../../services/actions/selected-ingredient";
 import IngredientBox from "../ingredient-box";
+import { useNavigate } from "react-router-dom";
 
 const BurgerIngredients = () => {
+
   const dispatch = useDispatch();
   const ingredientsTypes = [
     { name: "Булки", type: "bun" },
@@ -15,6 +17,7 @@ const BurgerIngredients = () => {
   ];
   const [current, setCurrent] = useState(ingredientsTypes[0].type);
   const [details, setDetails] = useState(false);
+  const navigate = useNavigate();
   const { ingredients } = useSelector(
     (store) => ({ ingredients: store.ingredients }),
     shallowEqual
@@ -25,8 +28,10 @@ const BurgerIngredients = () => {
     setDetails(false);
   };
 
-  const openDetails = () => {
-    setDetails(true);
+  const openDetails = (id) => {
+navigate(`/ingredients/${id}`,{
+  test:"test"
+});
   };
 
   const containerRef = useRef();
@@ -104,7 +109,7 @@ const BurgerIngredients = () => {
                           key={i._id}
                           ingredient={i}
                           count={count}
-                          onOpen={openDetails}
+                          onOpen={()=> {openDetails(i._id)}}
                         />
                       );
                     })}

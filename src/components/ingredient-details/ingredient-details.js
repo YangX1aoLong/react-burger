@@ -5,15 +5,17 @@ import Modal from "../modal";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 const IngredientDetails = (props) => {
-  const navigate = useNavigate();
   const ingredient = useSelector(
     (store) => store.selectedIngredient,
     shallowEqual
   );
-
+  const navigate = useNavigate();
+  const onClose = () => {
+    navigate(-1);
+  };
   return (
     <>
-      <Modal onClose={props.onClose}>
+      <Modal onClose={onClose}>
         <div className={style.ingredientDetailsBox}>
           <div className={`${style.title} pt-10 pl-10 pr-10`}>
             <p className="textGrey text text_type_main-large">
@@ -22,7 +24,7 @@ const IngredientDetails = (props) => {
             <div
               className={style.closeIconBox}
               onClick={() => {
-                props.onClose();
+                onClose();
               }}
             >
               <CloseIcon />
@@ -81,6 +83,6 @@ const IngredientDetails = (props) => {
   );
 };
 IngredientDetails.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
 };
 export default IngredientDetails;
