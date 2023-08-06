@@ -22,7 +22,6 @@ function App() {
   let location = useLocation();
 
   let state = location.state as { backgroundLocation?: Location };
-  console.log(state)
   return (
     <>
       <AppHeader />
