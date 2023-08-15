@@ -7,4 +7,4 @@ const NavigationLink = props => {
     );
 };
 export default NavigationLink;
-//background: #8585AD; #F2F2F3;
+

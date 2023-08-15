@@ -11,8 +11,16 @@ import { useDrop } from "react-dnd/dist/hooks";
 import { addIngredient } from "../../services/actions/burger-constructor";
 
 import ConstructorBox from "../constructor-box";
+import {
+  getStorageAccessToken,
+  getStorageRefreshToken,
+} from "../../utils/local-storage";
+import { useNavigate } from "react-router-dom";
+import { getAuth } from "../../services/actions/get-auth";
+import { getRefreshToken } from "../../services/actions/refresh-token";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [order, setOrder] = useState(false);
   const { selectedIngredients } = useSelector(
     (store) => ({ selectedIngredients: store.burgerConstructor }),
@@ -87,7 +95,19 @@ const BurgerConstructor = () => {
             htmlType="button"
             size="large"
             onClick={() => {
-              if (selectedIngredients.bun?._id) orderOpen();
+              if (selectedIngredients.bun?._id)
+                dispatch(getAuth(getStorageAccessToken())).then((e) => {
+                  if (e.payload?.success) {
+                    orderOpen();
+                  } else if (e.payload?.message === "jwt expired") {
+                    dispatch(getRefreshToken(getStorageRefreshToken())).then(
+                      (e) => {
+                        if (e.payload?.success) orderOpen();
+                        else alert(e.payload?.message);
+                      }
+                    );
+                  } else navigate("/login");
+                });
             }}
           >
             Оформить заказ

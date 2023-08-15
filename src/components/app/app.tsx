@@ -1,32 +1,48 @@
 import { useEffect } from 'react';
 import AppHeader from '../app-header';
-import BurgerConstructor from '../burger-constructor';
-import BurgerIngredients from '../burger-ingredients';
 import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-
+import { Route, Routes, useLocation, } from 'react-router-dom';
+import { MainPage } from '../../pages/main-page';
+import { NotFoundPage } from '../../pages/not-found-page';
+import { LoginPage } from '../../pages/login-page';
+import { RegisterPage } from '../../pages/register-page';
+import { ForgotPasswordPage } from '../../pages/forgot-passoword-page';
+import { ResetPasswordPage } from '../../pages/reset-password-page';
+import { ProfilePage } from '../../pages/profile-page';
+import { IngredientFullPage } from '../../pages/ingrediet-full-page';
+import { ProtectedRouteElement } from '../../pages/protected-route-element';
+import IngredientDetails from '../ingredient-details';
 
 function App() {
   const dispatch = useDispatch()<any>;
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch])
+  let location = useLocation();
 
+  let state = location.state as { backgroundLocation?: Location };
   return (
     <>
       <AppHeader />
-      <div className='container'>
-        <DndProvider backend={HTML5Backend}>
-          <div className='burgerIngredientsBox'>
-            <BurgerIngredients />
-          </div>
-          <div className='ml-10'>
-            <BurgerConstructor />
-          </div>
-        </DndProvider>
-      </div>
+      <Routes location={state?.backgroundLocation || location}>
+        <Route path='/' element={<ProtectedRouteElement><MainPage /></ProtectedRouteElement>} />
+        <Route path='/login' element={<ProtectedRouteElement><LoginPage /></ProtectedRouteElement>} />
+        <Route path='/register' element={<ProtectedRouteElement><RegisterPage /></ProtectedRouteElement>} />
+        <Route path='/forgot-password' element={<ProtectedRouteElement><ForgotPasswordPage /></ProtectedRouteElement>} />
+        <Route path='/reset-password' element={<ProtectedRouteElement><ResetPasswordPage /></ProtectedRouteElement>} />
+        <Route path='/ingredients/:id' element={<ProtectedRouteElement><IngredientFullPage /></ProtectedRouteElement>} />
+        <Route path='/profile' element={<ProtectedRouteElement><ProfilePage /></ProtectedRouteElement>} />
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+      {
+        state?.backgroundLocation && (
+          <Routes>
+            <Route path="/ingredients/:id" element={<IngredientDetails />} />
+          </Routes>
+        )
+      }
+
     </>
   );
 }
