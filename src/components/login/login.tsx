@@ -20,10 +20,10 @@ const Login = () => {
     } else setPasswordSetting(hidePassword);
   };
   const onLogin = () => {
-    dispatch(getLogin(email, password)).then((e)=>{
-      if(e.payload?.success) navigate("/")
+    dispatch(getLogin(email, password)).then((e:any) => {
+      if (e.payload?.success) navigate("/")
       else alert(e.payload?.message);
-    }); 
+    });
   };
 
   return (
@@ -32,7 +32,7 @@ const Login = () => {
       <form className="mt-6">
         <Input
           placeholder="E-mail"
-          icon="none"
+          icon={undefined}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

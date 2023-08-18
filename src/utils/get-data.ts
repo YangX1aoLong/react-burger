@@ -8,7 +8,7 @@ export const fetchIngredients = () => {
     });
 };
 
-export const fetchGetAuth = (token) => {
+export const fetchGetAuth = (token: string) => {
   return fetch(`${urlData}/auth/user`, {
     method: "GET",
     headers: {
@@ -23,7 +23,12 @@ export const fetchGetAuth = (token) => {
     });
 };
 
-export const fetchUpdateAuth = (token,name,email,passowrd) => {
+export const fetchUpdateAuth = (
+  token: string,
+  name: string,
+  email: string,
+  passowrd: string
+) => {
   return fetch(`${urlData}/auth/user?authorization=${token}`, {
     method: "PATCH",
     headers: {
@@ -31,9 +36,9 @@ export const fetchUpdateAuth = (token,name,email,passowrd) => {
       authorization: token,
     },
     body: JSON.stringify({
-      name:name,
-      email:email,
-      passowrd:passowrd,
+      name: name,
+      email: email,
+      passowrd: passowrd,
     }),
   })
     .then(checkReponse)
@@ -43,11 +48,13 @@ export const fetchUpdateAuth = (token,name,email,passowrd) => {
     });
 };
 
-const checkReponse = (res) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+const checkReponse = (res: any) => {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: any) => Promise.reject(err));
 };
 
-export const fetchForgotPassword = (email) => {
+export const fetchForgotPassword = (email: string) => {
   return fetch(`${urlData}/password-reset`, {
     method: "POST",
     headers: {
@@ -64,7 +71,7 @@ export const fetchForgotPassword = (email) => {
     });
 };
 
-export const fetchResetPassword = (password, token) => {
+export const fetchResetPassword = (password: string, token: string) => {
   return fetch(`${urlData}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -82,7 +89,11 @@ export const fetchResetPassword = (password, token) => {
     });
 };
 
-export const fetchRegistration = (email, password, name) => {
+export const fetchRegistration = (
+  email: string,
+  password: string,
+  name: string
+) => {
   return fetch(`${urlData}/auth/register`, {
     method: "POST",
     headers: {
@@ -101,7 +112,7 @@ export const fetchRegistration = (email, password, name) => {
     });
 };
 
-export const fetchLogin = (email, password) => {
+export const fetchLogin = (email: string, password: string) => {
   return fetch(`${urlData}/auth/login`, {
     method: "POST",
     headers: {
@@ -119,7 +130,7 @@ export const fetchLogin = (email, password) => {
     });
 };
 
-export const fetchLogout = (refreshToken) => {
+export const fetchLogout = (refreshToken: string) => {
   return fetch(`${urlData}/auth/logout`, {
     method: "POST",
     headers: {
@@ -136,7 +147,7 @@ export const fetchLogout = (refreshToken) => {
     });
 };
 
-export const fetchRefreshToken = (refreshToken) => {
+export const fetchRefreshToken = (refreshToken: string) => {
   return fetch(`${urlData}/auth/token`, {
     method: "POST",
     headers: {
@@ -153,7 +164,7 @@ export const fetchRefreshToken = (refreshToken) => {
     });
 };
 
-export const fetchOrder = (data) => {
+export const fetchOrder = (data: string) => {
   return fetch(`${urlData}/orders`, {
     method: "POST",
     headers: {

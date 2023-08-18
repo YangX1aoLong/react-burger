@@ -1,7 +1,7 @@
-export const saveStorageAccessToken = (token) => {
+export const saveStorageAccessToken = (token:string) => {
   localStorage.setItem("accessToken", token.toString());
 };
-export const saveStorageRefreshToken = (token) => {
+export const saveStorageRefreshToken = (token:string) => {
   localStorage.setItem("refreshToken", token.toString());
 };
 export const getStorageAccessToken = () => {

@@ -20,6 +20,7 @@ function App() {
     dispatch(getIngredients());
   }, [dispatch])
   let location = useLocation();
+  
 
   let state = location.state as { backgroundLocation?: Location };
   return (
