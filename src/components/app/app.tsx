@@ -22,7 +22,7 @@ function App() {
   let location = useLocation();
   
 
-  let state = location.state as { backgroundLocation?: Location };
+  const state = location.state as { backgroundLocation?: Location };
   return (
     <>
       <AppHeader />

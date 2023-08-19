@@ -1,4 +1,6 @@
+
 const urlData = "https://norma.nomoreparties.space/api";
+
 export const fetchIngredients = () => {
   return fetch(`${urlData}/ingredients`)
     .then(checkReponse)
@@ -25,9 +27,9 @@ export const fetchGetAuth = (token: string) => {
 
 export const fetchUpdateAuth = (
   token: string,
-  name: string,
-  email: string,
-  passowrd: string
+  name: string | null,
+  email: string | null,
+  passowrd: string | null
 ) => {
   return fetch(`${urlData}/auth/user?authorization=${token}`, {
     method: "PATCH",
