@@ -28,21 +28,27 @@ const ConstructorBox = (props: Props) => {
       isDragging: monitor.isDragging(),
     }),
   });
+  type TItemIngredient = {
+    ingredient: TIngredientConstructor
+  }
   const [, drop] = useDrop({
     accept: "consturctorElement",
-    hover: (item: any, monitor) => {
+    hover: (item: TItemIngredient, monitor) => {
       const ingredient = item.ingredient;
       const hoverIngredient = props.element;
       if (ingredient === hoverIngredient) return;
-      const hoverBoundingRect: any = ref.current?.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset: XYCoord | null = monitor.getClientOffset();
-      const hoverClientY = Number(clientOffset?.y) - hoverBoundingRect.top;
-      if (ingredient < hoverIngredient && hoverClientY < hoverMiddleY) return;
-      if (ingredient > hoverIngredient && hoverClientY > hoverMiddleY) return;
-      dispatch(sortIngredient(ingredient, hoverIngredient));
-    },
+      const hoverBoundingRect: DOMRect | undefined = ref.current?.getBoundingClientRect();
+      console.log(hoverBoundingRect)
+      if (hoverBoundingRect !== undefined) {
+        const hoverMiddleY =
+          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const clientOffset: XYCoord | null = monitor.getClientOffset();
+        const hoverClientY = Number(clientOffset?.y) - hoverBoundingRect.top;
+        if (ingredient < hoverIngredient && hoverClientY < hoverMiddleY) return;
+        if (ingredient > hoverIngredient && hoverClientY > hoverMiddleY) return;
+        dispatch(sortIngredient(ingredient, hoverIngredient));
+      }
+    }
   });
   drag(drop(ref));
   return (

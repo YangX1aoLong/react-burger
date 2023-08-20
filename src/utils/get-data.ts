@@ -1,37 +1,57 @@
+import { TIngredient } from "../types";
 
 const urlData = "https://norma.nomoreparties.space/api";
 
-export const fetchIngredients = () => {
-  return fetch(`${urlData}/ingredients`)
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data.data;
-      return Promise.reject(data);
-    });
+type TServerResopnse<T> = {
+  success: boolean;
+} & T;
+
+type TIngredientsResponse = TServerResopnse<{ data: TIngredient[] }>;
+type TAuthResponse = TServerResopnse<{ user: { email: string; name: string } }>;
+type TMessageResponse = TServerResopnse<{ message: string }>;
+type TTokenResponse = TServerResopnse<{
+  accessToken: string;
+  refreshToken: string;
+}>;
+type TLoginResponse = TTokenResponse & TAuthResponse;
+type TOrderResponse = TServerResopnse<{
+  name: string;
+  order: {
+    number: number;
+  };
+}>;
+
+const checkReponse = (res: Response) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export const fetchGetAuth = (token: string) => {
-  return fetch(`${urlData}/auth/user`, {
+export const fetchIngredients = async (): Promise<TIngredientsResponse> => {
+  const res = await fetch(`${urlData}/ingredients`);
+  const data = await checkReponse(res);
+  if (data?.success) return data.data;
+  return Promise.reject(data);
+};
+
+export const fetchGetAuth = async (token: string): Promise<TAuthResponse> => {
+  const res = await fetch(`${urlData}/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: token,
     },
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchUpdateAuth = (
+export const fetchUpdateAuth = async (
   token: string,
   name: string | null,
   email: string | null,
   passowrd: string | null
-) => {
-  return fetch(`${urlData}/auth/user?authorization=${token}`, {
+): Promise<TAuthResponse> => {
+  const res = await fetch(`${urlData}/auth/user?authorization=${token}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -42,22 +62,16 @@ export const fetchUpdateAuth = (
       email: email,
       passowrd: passowrd,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-const checkReponse = (res: any) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err: any) => Promise.reject(err));
-};
-
-export const fetchForgotPassword = (email: string) => {
-  return fetch(`${urlData}/password-reset`, {
+export const fetchForgotPassword = async (
+  email: string
+): Promise<TMessageResponse> => {
+  const res = await fetch(`${urlData}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -65,16 +79,17 @@ export const fetchForgotPassword = (email: string) => {
     body: JSON.stringify({
       email: email,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchResetPassword = (password: string, token: string) => {
-  return fetch(`${urlData}/password-reset/reset`, {
+export const fetchResetPassword = async (
+  password: string,
+  token: string
+): Promise<TMessageResponse> => {
+  const res = await fetch(`${urlData}/password-reset/reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -83,20 +98,18 @@ export const fetchResetPassword = (password: string, token: string) => {
       password: password,
       token: token,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchRegistration = (
+export const fetchRegistration = async (
   email: string,
   password: string,
   name: string
-) => {
-  return fetch(`${urlData}/auth/register`, {
+): Promise<TLoginResponse> => {
+  const res = await fetch(`${urlData}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -106,16 +119,17 @@ export const fetchRegistration = (
       password: password,
       name: name,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchLogin = (email: string, password: string) => {
-  return fetch(`${urlData}/auth/login`, {
+export const fetchLogin = async (
+  email: string,
+  password: string
+): Promise<TLoginResponse> => {
+  const res = await fetch(`${urlData}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -124,16 +138,16 @@ export const fetchLogin = (email: string, password: string) => {
       email: email,
       password: password,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchLogout = (refreshToken: string) => {
-  return fetch(`${urlData}/auth/logout`, {
+export const fetchLogout = async (
+  refreshToken: string
+): Promise<TMessageResponse> => {
+  const res = await fetch(`${urlData}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -141,16 +155,16 @@ export const fetchLogout = (refreshToken: string) => {
     body: JSON.stringify({
       token: refreshToken,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchRefreshToken = (refreshToken: string) => {
-  return fetch(`${urlData}/auth/token`, {
+export const fetchRefreshToken = async (
+  refreshToken: string
+): Promise<TTokenResponse> => {
+  const res = await fetch(`${urlData}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -158,16 +172,14 @@ export const fetchRefreshToken = (refreshToken: string) => {
     body: JSON.stringify({
       token: refreshToken,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data = await checkReponse(res);
+  if (data?.success) return data;
+  return Promise.reject(data);
 };
 
-export const fetchOrder = (data: string) => {
-  return fetch(`${urlData}/orders`, {
+export const fetchOrder = async (data: string): Promise<TOrderResponse> => {
+  const res = await fetch(`${urlData}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -175,10 +187,9 @@ export const fetchOrder = (data: string) => {
     body: JSON.stringify({
       ingredients: data,
     }),
-  })
-    .then(checkReponse)
-    .then((data) => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
+  const data_1 = await checkReponse(res);
+  console.log(data_1);
+  if (data_1?.success) return data_1;
+  return Promise.reject(data_1);
 };

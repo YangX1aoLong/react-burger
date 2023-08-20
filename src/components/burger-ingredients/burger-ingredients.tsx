@@ -1,16 +1,13 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../ingredient-details";
 import style from "./burger-ingredients.module.css";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { unselectIngredient } from "../../services/actions/selected-ingredient";
+import { shallowEqual, useSelector } from "react-redux";
 import IngredientBox from "../ingredient-box";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient } from "../../types";
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
-  const containerRef = useRef<HTMLDivElement | any>();
+  const containerRef = useRef<HTMLDivElement>(null);
   const refs = useRef<HTMLDivElement[]>([]);
   const ingredientsTypes = [
     { name: "Булки", type: "bun" },
@@ -19,17 +16,11 @@ const BurgerIngredients = () => {
   ];
   const location = useLocation();
   const [current, setCurrent] = useState(ingredientsTypes[0].type);
-  const [details, setDetails] = useState(false);
 
   const { ingredients } = useSelector(
     (store: any) => ({ ingredients: store.ingredients }),
     shallowEqual
   );
-
-  const closeDetails = () => {
-    dispatch(unselectIngredient());
-    setDetails(false);
-  };
 
   useEffect(() => {
     const position = sessionStorage.getItem("scroll");
@@ -37,32 +28,29 @@ const BurgerIngredients = () => {
   }, []);
 
   const handleScroll = () => {
-    const typesMap: number[] = [0, 1, 2];
-    const containerPosition = containerRef.current!.getBoundingClientRect().top;
-    const categoriesPositions: any = {};
+    const typesMap = [0, 1, 2];
+    const containerPosition = containerRef.current?.getBoundingClientRect().top;
+    const categoriesPositions: number[] = [];
     Object.keys(typesMap).map(
-      (type: any) =>
-      (categoriesPositions[type] = Math.abs(
-        containerPosition - refs.current[type]!.getBoundingClientRect().top
-      ))
+      (type) =>
+        containerPosition && (categoriesPositions[Number(type)] = Math.abs(
+          containerPosition - refs.current[Number(type)].getBoundingClientRect().top))
     );
 
-    const minCategoryPosition = Math.min(Number(...Object.values(categoriesPositions)));
-    const currentTab: number = Number(Object.keys(categoriesPositions).find(
-      (key) => minCategoryPosition === categoriesPositions[key]
-    ));
-    setCurrent(ingredientsTypes[currentTab].type);
+    const minCategoryPosition = Math.min(...Object.values(categoriesPositions));
+    const currentTab: string | undefined = Object.keys(categoriesPositions).find(
+      (key) => minCategoryPosition === categoriesPositions[Number(key)]
+    );
+    currentTab && setCurrent(ingredientsTypes[Number(currentTab)].type);
   };
 
-  const chooseTab = (e: any) => {
+  const chooseTab = (e: string) => {
     refs.current[
       ingredientsTypes.findIndex((i) => i.type === e)
     ].scrollIntoView();
   };
-  //onClose={closeDetails}
   return (
     <>
-      {details && <IngredientDetails />}
       <div className={`${style.burgerIngredients} mt-10`}>
         <p className="textGrey text text_type_main-large"> Соберите бургер</p>
         <div className={`${style.tabs} mt-5`}>

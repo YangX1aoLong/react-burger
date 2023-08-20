@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { deleteAllIngredient } from "../../services/actions/burger-constructor";
 import { TIngredient } from "../../types";
 type Props = {
-  onClose: any;
+  onClose:Function
 }
 const OrderDetails = (props: Props) => {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const OrderDetails = (props: Props) => {
       ])
     );
     dispatch(deleteAllIngredient());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
