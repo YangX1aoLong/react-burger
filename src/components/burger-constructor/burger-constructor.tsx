@@ -18,7 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "../../services/actions/get-auth";
 import { getRefreshToken } from "../../services/actions/refresh-token";
-import { TIngredientConstructor } from "../../types";
+import { TIngredientConstructor, TItemIngredient } from "../../types";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,9 +41,10 @@ const BurgerConstructor = () => {
   const orderOpen = () => {
     setOrder(true);
   };
-  const [, dropRef] = useDrop({
+
+  const [, dropRef] = useDrop<TItemIngredient>({
     accept: "ingredient",
-    drop(item:any) {
+    drop(item: TItemIngredient) {
       dispatch(addIngredient(item.ingredient));
     },
   });

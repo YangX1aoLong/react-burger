@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { deleteAllIngredient } from "../../services/actions/burger-constructor";
 import { TIngredient } from "../../types";
 type Props = {
-  onClose:Function
+  onClose: () => void
 }
 const OrderDetails = (props: Props) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const OrderDetails = (props: Props) => {
     shallowEqual
   );
   const { orderDetails } = useSelector(
-    (store:any) => ({ orderDetails: store.orderDetail }),
+    (store: any) => ({ orderDetails: store.orderDetail }),
     shallowEqual
   );
   useEffect(() => {
@@ -26,13 +26,13 @@ const OrderDetails = (props: Props) => {
     dispatch(
       getOrder([
         ...buns,
-        ...selectedIngredients.mains.map((i:TIngredient) => {
+        ...selectedIngredients.mains.map((i: TIngredient) => {
           return i._id;
         }),
       ])
     );
     dispatch(deleteAllIngredient());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

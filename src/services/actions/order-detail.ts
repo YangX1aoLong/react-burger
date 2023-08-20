@@ -4,7 +4,7 @@ export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const GET_ORDER_ERROR = "GET_ORDER_ERROR";
 
-export const getOrder:any = (data:any) => (dispatch:any) => {
+export const getOrder:any = (data:string[]) => (dispatch:any) => {
   dispatch({ type: GET_ORDER_REQUEST });
   return fetchOrder(data)
     .then((res) => dispatch({ type: GET_ORDER_SUCCESS, payload: res }))

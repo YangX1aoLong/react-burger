@@ -4,7 +4,7 @@ export const UPDATE_AUTH_REQUEST = "UPDATE_AUTH_REQUEST";
 export const UPDATE_AUTH_SUCCESS = "UPDATE_AUTH_SUCCESS";
 export const UPDATE_AUTH_ERROR = "UPDATE_AUTH_ERROR";
 
-export const updateAuth :any =
+export const updateAuth:any =
   (
     token: string | null,
     name: string | null,

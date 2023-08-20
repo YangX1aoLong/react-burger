@@ -16,6 +16,9 @@ export type TInputIcon =
   | "ShowIcon"
   | undefined;
 
+export type TItemIngredient = {
+  ingredient: TIngredientConstructor;
+};
 export type TIngredient = {
   calories: number;
   carbohydrates: number;

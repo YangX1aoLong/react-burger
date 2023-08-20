@@ -11,7 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks";
 import { useRef } from "react";
-import { TIngredientConstructor } from "../../types";
+import { TIngredientConstructor, TItemIngredient } from "../../types";
 import { XYCoord } from "react-dnd";
 
 type Props = {
@@ -28,9 +28,7 @@ const ConstructorBox = (props: Props) => {
       isDragging: monitor.isDragging(),
     }),
   });
-  type TItemIngredient = {
-    ingredient: TIngredientConstructor
-  }
+
   const [, drop] = useDrop({
     accept: "consturctorElement",
     hover: (item: TItemIngredient, monitor) => {
@@ -38,7 +36,6 @@ const ConstructorBox = (props: Props) => {
       const hoverIngredient = props.element;
       if (ingredient === hoverIngredient) return;
       const hoverBoundingRect: DOMRect | undefined = ref.current?.getBoundingClientRect();
-      console.log(hoverBoundingRect)
       if (hoverBoundingRect !== undefined) {
         const hoverMiddleY =
           (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;

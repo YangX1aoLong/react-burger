@@ -15,9 +15,8 @@ export const deleteIngredient = (ingredientId: number) => ({
   payload: ingredientId,
 });
 
-export const deleteAllIngredient:any = (ingredientId: number) => ({
+export const deleteAllIngredient = () => ({
   type: DELETE_ALL_INGREDIENT,
-  payload: ingredientId,
 });
 
 export const sortIngredient = (

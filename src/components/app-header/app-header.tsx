@@ -26,18 +26,14 @@ const AppHeader = () => {
       <div className={`${style.contentBox} m-4`}>
         <div className={style.navBox}>
           <div onClick={selectConstructor}>
-            <NavigationLink
-              icon={BurgerIcon}
-              typeIcon={selectedLink === linkList[0] ? "primary" : "secondary"}
-              text={linkList[0]}
-            />
+            <NavigationLink text="Лента заказов" type={selectedLink === linkList[0] ? "primary" : "secondary"}>
+              <BurgerIcon type={selectedLink === linkList[0] ? "primary" : "secondary"} />
+            </NavigationLink>
           </div>
           <div>
-            <NavigationLink
-              icon={ListIcon}
-              typeIcon={selectedLink === linkList[1] ? "primary" : "secondary"}
-              text="Лента заказов"
-            />
+            <NavigationLink text="Лента заказов" type={selectedLink === linkList[1] ? "primary" : "secondary"}>
+              <ListIcon type={selectedLink === linkList[1] ? "primary" : "secondary"} />
+            </NavigationLink>
           </div>
         </div>
         <div className={style.logoBurger}>
@@ -47,11 +43,10 @@ const AppHeader = () => {
           className={`${style.navBox} ${style.loginBox}`}
           onClick={selectProfile}
         >
-          <NavigationLink            
-            icon={ProfileIcon}
-            typeIcon={selectedLink === linkList[2] ? "primary" : "secondary"}
-            text="Личный кабинет"
-          />
+          <NavigationLink
+            text="Лента заказов" type={selectedLink === linkList[2] ? "primary" : "secondary"}>
+            <ProfileIcon type={selectedLink === linkList[2] ? "primary" : "secondary"} />
+          </NavigationLink>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ export const GET_REGISTRATION_REQUEST = "GET_REGISTRATION_REQUEST";
 export const GET_REGISTRATION_SUCCESS = "GET_REGISTRATION_SUCCESS";
 export const GET_REGISTRATION_ERROR = "GET_REGISTRATION_ERROR";
 
-export const getRegistration = (email:string,password:string,name:string):any => (dispatch:any) => {
+export const getRegistration:any = (email:string,password:string,name:string) => (dispatch:any) => {
   dispatch({ type: GET_REGISTRATION_REQUEST });
   return fetchRegistration(email,password,name)
     .then((res) =>

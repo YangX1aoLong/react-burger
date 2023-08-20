@@ -178,7 +178,7 @@ export const fetchRefreshToken = async (
   return Promise.reject(data);
 };
 
-export const fetchOrder = async (data: string): Promise<TOrderResponse> => {
+export const fetchOrder = async (data: string[]): Promise<TOrderResponse> => {
   const res = await fetch(`${urlData}/orders`, {
     method: "POST",
     headers: {
@@ -189,7 +189,6 @@ export const fetchOrder = async (data: string): Promise<TOrderResponse> => {
     }),
   });
   const data_1 = await checkReponse(res);
-  console.log(data_1);
   if (data_1?.success) return data_1;
   return Promise.reject(data_1);
 };
