@@ -17,6 +17,10 @@ const AppHeader = () => {
     setSelectedLink(linkList[0]);
     navigate("/");
   };
+  const selectFeed = () => {
+    setSelectedLink(linkList[1]);
+    navigate("/feed");
+  };
   const selectProfile = () => {
     setSelectedLink(linkList[2]);
     navigate("/profile");
@@ -30,7 +34,7 @@ const AppHeader = () => {
               <BurgerIcon type={selectedLink === linkList[0] ? "primary" : "secondary"} />
             </NavigationLink>
           </div>
-          <div>
+          <div onClick={selectFeed}>
             <NavigationLink text="Лента заказов" type={selectedLink === linkList[1] ? "primary" : "secondary"}>
               <ListIcon type={selectedLink === linkList[1] ? "primary" : "secondary"} />
             </NavigationLink>

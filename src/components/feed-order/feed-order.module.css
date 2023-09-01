@@ -1,0 +1,21 @@
+.window {
+    width: 640px;
+    height: 620px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ingredientsBox {
+    width: 640px;
+    height: 366px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.price {
+    width: 360px;
+    text-align: right;
+
+}

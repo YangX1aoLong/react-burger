@@ -16,6 +16,15 @@ export type TInputIcon =
   | "ShowIcon"
   | undefined;
 
+export type TFeedOrder = {
+  createdAt: string;
+  ingredients: Array<string>;
+  number: number;
+  name: string;
+  status: string;
+  updatedAt: string;
+  _id: string;
+};
 export type TItemIngredient = {
   ingredient: TIngredientConstructor;
 };

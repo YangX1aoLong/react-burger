@@ -3,8 +3,8 @@ import { fetchIngredients } from "../../utils/get-data";
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
-
-export const getIngredients = () => (dispatch:any) => {
+export const GET_INGREDIENT = "GET_INGREDIENT";
+export const getIngredients = () => (dispatch: any) => {
   dispatch({ type: GET_INGREDIENTS_REQUEST });
   return fetchIngredients()
     .then((res) => {
@@ -12,4 +12,3 @@ export const getIngredients = () => (dispatch:any) => {
     })
     .catch((err) => dispatch({ type: GET_INGREDIENTS_ERROR, payload: err }));
 };
-

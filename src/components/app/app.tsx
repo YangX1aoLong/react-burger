@@ -13,6 +13,8 @@ import { ProfilePage } from '../../pages/profile-page';
 import { IngredientFullPage } from '../../pages/ingrediet-full-page';
 import { ProtectedRouteElement } from '../../pages/protected-route-element';
 import IngredientDetails from '../ingredient-details';
+import { FeedPage } from '../../pages/feed-page';
+import { FeedOrderPage } from '../../pages/feed-order-page';
 
 function App() {
   const dispatch = useDispatch()<any>;
@@ -20,7 +22,7 @@ function App() {
     dispatch(getIngredients());
   }, [dispatch])
   let location = useLocation();
-  
+
 
   const state = location.state as { backgroundLocation?: Location };
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path='/reset-password' element={<ProtectedRouteElement><ResetPasswordPage /></ProtectedRouteElement>} />
         <Route path='/ingredients/:id' element={<ProtectedRouteElement><IngredientFullPage /></ProtectedRouteElement>} />
         <Route path='/profile' element={<ProtectedRouteElement><ProfilePage /></ProtectedRouteElement>} />
+        <Route path='/feed/:id' element={<ProtectedRouteElement><FeedOrderPage /></ProtectedRouteElement>} />
+        <Route path='/feed' element={<ProtectedRouteElement><FeedPage /></ProtectedRouteElement>} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
       {
