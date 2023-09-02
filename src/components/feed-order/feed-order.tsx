@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { TFeedOrder, TIngredient } from "../../types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getDate } from "../../utils/other-functions";
+type TIngredientWithCount = TIngredient & {
+    count: number;
+}
 const FeedOrder = () => {
     const location = useLocation();
     const { feed } = useSelector(
@@ -15,21 +18,31 @@ const FeedOrder = () => {
         (store: any) => ({ ingredients: store.ingredients.data }),
         shallowEqual
     );
-    type TCount = {
-        id: string,
-        count: number
-    }
     const [order, setOrder] = useState<TFeedOrder>();
+    const [ingredientDetail, setIngredientDetail] = useState<TIngredientWithCount[]>();
+
     useEffect(() => {
         setOrder(feed);
         getIngredient(feed.ingredients);
-    }, [])
+    }, [ingredients])
     const getIngredient = (ingredientsDetails: [string]) => {
-        let data: TIngredient[] = [];
+        let data: TIngredientWithCount[] = [];
         for (let i = 0; i < ingredientsDetails.length; i++) {
-            data.push(ingredients.find((j: TIngredient) => j._id === ingredientsDetails[i]))
+            const index = data.findIndex((j: TIngredient) => j?._id === ingredientsDetails[i]);
+            if (index !== -1)
+                data[index] = { ...data[index], count: ++data[index].count }
+            else if (ingredients.find((j: TIngredient) => j._id === ingredientsDetails[i]))
+                data.push({ ...ingredients.find((j: TIngredient) => j._id === ingredientsDetails[i]), count: 1 });
         }
-        return null
+        setIngredientDetail(data);
+    }
+    const getPrice = () => {
+        let price = 0;
+        if (ingredientDetail)
+            for (let i = 0; i < ingredientDetail?.length; i++) {
+                price += ingredientDetail[i].price * ingredientDetail[i].count;
+            }
+        return price;
     }
     const getStatus = (status: string | undefined) => {
         if (status === "done")
@@ -45,25 +58,18 @@ const FeedOrder = () => {
             <p className={`textGrey text text_type_main-medium mt-15`}>Состав:</p>
             <div className={`${style.ingredientsBox}`}>
                 {
-                    order?.ingredients.map((i: string, index: number) => {
-                        console.log('ste')
-                       //const ingredient: TIngredient = getIngredient(i);
-                        //ingredient && setPrice(price + ingredient.price);
-                        // if (count?.find((j: TCount) => j.id === i) !== undefined) {
-                        //     console.log('ste')
-                        //     console.log(
-                        //         count?.map((k: TCount) => {
-                        //             if (k.id === i) return { id: i, count: ++k.count }
-                        //             else return { id: k.id, count: k.count }
-                        //         })
-                        //     )
-                        // } else
-                        //     setCount([...count, { id: i, count: 1 }])
-
+                    ingredientDetail?.map((i: TIngredientWithCount, index: number) => {
+                        if (i === undefined) return (<div key={index} />)
                         return (
-                            <div key={index}>
-
-
+                            <div key={index} className={` ${index === 0 ? "mt-6" : "mt-4"} container`}>
+                                <div key={index} className={style.imageBox}>
+                                    <img className={style.image} alt={i.name} height={64} width={100} src={i.image}></img>
+                                </div>
+                                <p className={`textGrey text text_type_main-default mt-5 ml-4`}>{i.name}</p>
+                                <p className={`${style.priceIngredient} textGrey text text_type_digits-default ml-4 mr-2`}>{i.count} x {i.price}</p>
+                                <div className="mr-6">
+                                    <CurrencyIcon type="primary" />
+                                </div>
                             </div>
                         )
                     })
@@ -71,10 +77,11 @@ const FeedOrder = () => {
 
 
             </div>
-            <div className={`${style.thumb}mt-10 container`}>
+            <div className={`${style.thumb} mt-10 container`}>
                 <p className={`textDarkGrey text text_type_main-default`}>{getDate(order?.createdAt)}</p>
-                <p className={`${style.price} textGrey text text_type_digits-default mr-2`}>{100}</p>
+                <p className={`${style.price} textGrey text text_type_digits-default mr-2`}>{getPrice()}</p>
                 <CurrencyIcon type="primary" />
+
             </div>
         </div>
     )

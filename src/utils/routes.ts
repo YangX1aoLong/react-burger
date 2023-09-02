@@ -1,0 +1,11 @@
+export const rootPath = "/";
+export const loginPath = "/login";
+export const registerPath = "/register";
+export const forgotPassowrdPath = "/forgot-password";
+export const resetPasswordPath = "/reset-password";
+export const ingredietnsPath = "/ingredients/:id";
+export const profilePath = "/profile";
+export const feedIdPath = "/feed/:id";
+export const feedPath = "/feed";
+export const otherPath = "*";
+export const ordersIdPath = "/profile/orders/:id";

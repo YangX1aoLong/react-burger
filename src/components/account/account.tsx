@@ -4,10 +4,11 @@ import style from "./account.module.css";
 import { useNavigate } from "react-router-dom";
 import { getLogout } from "../../services/actions/logout";
 import {
-  clearStorage,  
+  clearStorage,
   getStorageRefreshToken,
 } from "../../utils/local-storage";
 import { useDispatch } from "react-redux";
+import Orders from "../orders";
 
 const points = ["Профиль", "История заказов", "Выход"];
 const Account = () => {
@@ -32,9 +33,8 @@ const Account = () => {
       <div>
         <div className={style.navigation} onClick={selectProfile}>
           <p
-            className={`${
-              selectedPoint === points[0] ? "textGrey" : "textDarkGrey"
-            } text text_type_main-medium pt-4`}
+            className={`${selectedPoint === points[0] ? "textGrey" : "textDarkGrey"
+              } text text_type_main-medium pt-4`}
           >
             {points[0]}
           </p>
@@ -42,9 +42,8 @@ const Account = () => {
 
         <div className={style.navigation} onClick={selectHistory}>
           <p
-            className={`${
-              selectedPoint === points[1] ? "textGrey" : "textDarkGrey"
-            } text text_type_main-medium pt-4`}
+            className={`${selectedPoint === points[1] ? "textGrey" : "textDarkGrey"
+              } text text_type_main-medium pt-4`}
           >
             {points[1]}
           </p>
@@ -52,13 +51,12 @@ const Account = () => {
 
         <div className={style.navigation} onClick={selectExit}>
           <p
-            className={`${
-              selectedPoint === points[2] ? "textGrey" : "textDarkGrey"
-            } text text_type_main-medium pt-4`}
+            className={`${selectedPoint === points[2] ? "textGrey" : "textDarkGrey"
+              } text text_type_main-medium pt-4`}
           >
             {points[2]}
           </p>
-        </div>      
+        </div>
 
         <div className={`${style.about} mt-20`}>
           <p className="textDarkGrey text text_type_main-default pt-2">
@@ -67,7 +65,9 @@ const Account = () => {
         </div>
       </div>
       <div className="pl-15">
-        <Profile />
+        {selectedPoint === points[0] && <Profile />}
+        {selectedPoint === points[1] && <Orders />}
+
       </div>
     </div>
   );

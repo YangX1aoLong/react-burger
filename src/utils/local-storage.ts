@@ -9,7 +9,9 @@ export const getStorageAccessToken = () => {
     
 };
 export const getStorageRefreshToken = () => {
-  return localStorage.getItem("refreshToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+  if (refreshToken === null) return "null"
+  else return refreshToken;
 };
 export const clearStorage = () => {
   localStorage.clear();

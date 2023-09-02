@@ -15,6 +15,8 @@ import { ProtectedRouteElement } from '../../pages/protected-route-element';
 import IngredientDetails from '../ingredient-details';
 import { FeedPage } from '../../pages/feed-page';
 import { FeedOrderPage } from '../../pages/feed-order-page';
+import { feedIdPath, feedPath, forgotPassowrdPath, ingredietnsPath, loginPath, ordersIdPath, otherPath, profilePath, registerPath, resetPasswordPath, rootPath } from '../../utils/routes';
+import { OrdersIdPage } from '../../pages/orders-id-page';
 
 function App() {
   const dispatch = useDispatch()<any>;
@@ -29,16 +31,17 @@ function App() {
     <>
       <AppHeader />
       <Routes location={state?.backgroundLocation || location}>
-        <Route path='/' element={<ProtectedRouteElement><MainPage /></ProtectedRouteElement>} />
-        <Route path='/login' element={<ProtectedRouteElement><LoginPage /></ProtectedRouteElement>} />
-        <Route path='/register' element={<ProtectedRouteElement><RegisterPage /></ProtectedRouteElement>} />
-        <Route path='/forgot-password' element={<ProtectedRouteElement><ForgotPasswordPage /></ProtectedRouteElement>} />
-        <Route path='/reset-password' element={<ProtectedRouteElement><ResetPasswordPage /></ProtectedRouteElement>} />
-        <Route path='/ingredients/:id' element={<ProtectedRouteElement><IngredientFullPage /></ProtectedRouteElement>} />
-        <Route path='/profile' element={<ProtectedRouteElement><ProfilePage /></ProtectedRouteElement>} />
-        <Route path='/feed/:id' element={<ProtectedRouteElement><FeedOrderPage /></ProtectedRouteElement>} />
-        <Route path='/feed' element={<ProtectedRouteElement><FeedPage /></ProtectedRouteElement>} />
-        <Route path='*' element={<NotFoundPage />} />
+        <Route path={rootPath} element={<ProtectedRouteElement><MainPage /></ProtectedRouteElement>} />
+        <Route path={loginPath} element={<ProtectedRouteElement><LoginPage /></ProtectedRouteElement>} />
+        <Route path={registerPath} element={<ProtectedRouteElement><RegisterPage /></ProtectedRouteElement>} />
+        <Route path={forgotPassowrdPath} element={<ProtectedRouteElement><ForgotPasswordPage /></ProtectedRouteElement>} />
+        <Route path={resetPasswordPath} element={<ProtectedRouteElement><ResetPasswordPage /></ProtectedRouteElement>} />
+        <Route path={ingredietnsPath} element={<ProtectedRouteElement><IngredientFullPage /></ProtectedRouteElement>} />
+        <Route path={profilePath} element={<ProtectedRouteElement><ProfilePage /></ProtectedRouteElement>} />
+        <Route path={feedIdPath} element={<ProtectedRouteElement><FeedOrderPage /></ProtectedRouteElement>} />
+        <Route path={feedPath} element={<ProtectedRouteElement><FeedPage /></ProtectedRouteElement>} />
+        <Route path={ordersIdPath} element={<ProtectedRouteElement><OrdersIdPage /></ProtectedRouteElement>} />
+        <Route path={otherPath} element={<NotFoundPage />} />
       </Routes>
       {
         state?.backgroundLocation && (

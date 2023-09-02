@@ -48,7 +48,7 @@ const AppHeader = () => {
           onClick={selectProfile}
         >
           <NavigationLink
-            text="Лента заказов" type={selectedLink === linkList[2] ? "primary" : "secondary"}>
+            text="Личный кабинет" type={selectedLink === linkList[2] ? "primary" : "secondary"}>
             <ProfileIcon type={selectedLink === linkList[2] ? "primary" : "secondary"} />
           </NavigationLink>
         </div>
