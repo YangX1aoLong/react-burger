@@ -7,36 +7,45 @@ import {
 import NavigationLink from "../navigation-link";
 import style from "./app-header.module.css";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-const linkList = ["Конструктор", "Лента заказов", "Личный кабинет"];
+type THeader = {
+  locate: string;
+  name: string;
+}
+const linkList: THeader[] = [
+  { locate: "/", name: "Конструктор" },
+  { locate: "/feed", name: "Лента заказов" },
+  { locate: "/profile", name: "Личный кабинет" }
+];
 const AppHeader = () => {
-  const [selectedLink, setSelectedLink] = useState(linkList[0]);
-  const navigate = useNavigate();
+  const location = useLocation();
+  const [selectedLink, setSelectedLink] = useState<string>(location.pathname);
+  const navigate = useNavigate();  
   const selectConstructor = () => {
-    setSelectedLink(linkList[0]);
-    navigate("/");
+    setSelectedLink(linkList[0].locate);
+    navigate(linkList[0].locate);
   };
   const selectFeed = () => {
-    setSelectedLink(linkList[1]);
-    navigate("/feed");
+    setSelectedLink(linkList[1].locate);
+    navigate(linkList[1].locate);
   };
   const selectProfile = () => {
-    setSelectedLink(linkList[2]);
-    navigate("/profile");
+    setSelectedLink(linkList[2].locate);
+    navigate(linkList[2].locate);
   };
   return (
     <div className={style.navPanel}>
       <div className={`${style.contentBox} m-4`}>
         <div className={style.navBox}>
           <div onClick={selectConstructor}>
-            <NavigationLink text="Лента заказов" type={selectedLink === linkList[0] ? "primary" : "secondary"}>
-              <BurgerIcon type={selectedLink === linkList[0] ? "primary" : "secondary"} />
+            <NavigationLink text={linkList[0].name} type={selectedLink === linkList[0].locate ? "primary" : "secondary"}>
+              <BurgerIcon type={selectedLink === linkList[0].locate ? "primary" : "secondary"} />
             </NavigationLink>
           </div>
           <div onClick={selectFeed}>
-            <NavigationLink text="Лента заказов" type={selectedLink === linkList[1] ? "primary" : "secondary"}>
-              <ListIcon type={selectedLink === linkList[1] ? "primary" : "secondary"} />
+            <NavigationLink text={linkList[1].name} type={selectedLink === linkList[1].locate ? "primary" : "secondary"}>
+              <ListIcon type={selectedLink === linkList[1].locate ? "primary" : "secondary"} />
             </NavigationLink>
           </div>
         </div>
@@ -48,8 +57,8 @@ const AppHeader = () => {
           onClick={selectProfile}
         >
           <NavigationLink
-            text="Личный кабинет" type={selectedLink === linkList[2] ? "primary" : "secondary"}>
-            <ProfileIcon type={selectedLink === linkList[2] ? "primary" : "secondary"} />
+            text={linkList[2].name} type={selectedLink === linkList[2].locate ? "primary" : "secondary"}>
+            <ProfileIcon type={selectedLink === linkList[2].locate ? "primary" : "secondary"} />
           </NavigationLink>
         </div>
       </div>

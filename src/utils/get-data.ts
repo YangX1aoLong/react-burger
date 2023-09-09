@@ -1,7 +1,11 @@
 import { TIngredient } from "../types";
 
-const urlData = "https://norma.nomoreparties.space/api";
-
+export const urlData = "https://norma.nomoreparties.space/api";
+export const urlOrdersAll = "wss://norma.nomoreparties.space/orders/all";
+const urlOrders = "wss://norma.nomoreparties.space/orders";
+export const getUrlOrders = (token: string) => {
+  return `${urlOrders}?token=${token.substring(7)}`;
+};
 type TServerResopnse<T> = {
   success: boolean;
 } & T;
@@ -178,11 +182,15 @@ export const fetchRefreshToken = async (
   return Promise.reject(data);
 };
 
-export const fetchOrder = async (data: string[]): Promise<TOrderResponse> => {
+export const fetchOrder = async (
+  data: string[],
+  token: string
+): Promise<TOrderResponse> => {
   const res = await fetch(`${urlData}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: token,
     },
     body: JSON.stringify({
       ingredients: data,

@@ -20,3 +20,5 @@ export const updateAuth:any =
         .then((res) => dispatch({ type: UPDATE_AUTH_SUCCESS, payload: res }))
         .catch((err) => dispatch({ type: UPDATE_AUTH_ERROR, payload: err }));
   };
+
+  

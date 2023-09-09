@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -23,10 +23,33 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [order, setOrder] = useState(false);
+  const [orderFlag,setOrderFlag] = useState(false);
   const { selectedIngredients } = useSelector(
     (store: any) => ({ selectedIngredients: store.burgerConstructor }),
     shallowEqual
   );
+  const auth = useSelector((store: any) => store.getAuth, shallowEqual);
+  useEffect(() => {
+    if (auth?.error?.message === 'jwt expired')
+      dispatch(getRefreshToken(getStorageRefreshToken()));
+    if (auth?.data?.success === true && orderFlag === true) {
+      setOrderFlag(false);
+      orderOpen();      
+    }    
+  }, [auth])
+  // .then((e: any) => {
+
+  //   if (e.payload?.success) {
+  //     orderOpen();
+  //   } else if (e.payload?.message === "jwt expired") {
+  //     dispatch(getRefreshToken(getStorageRefreshToken())).then(
+  //       (e: any) => {
+  //         if (e.payload?.success) orderOpen();
+  //         else alert(e.payload?.message);
+  //       }
+  //     );
+  //   } else navigate("/login");
+  // });
   const summPrice = () => {
     let summ = 0;
     for (let i = 0; i < selectedIngredients.mains.length; i++)
@@ -100,20 +123,11 @@ const BurgerConstructor = () => {
               const token = getStorageAccessToken();
               if (token === null) navigate("/login");
               else
-                if (selectedIngredients.bun?._id)
-                  dispatch(getAuth(getStorageAccessToken())).then((e: any) => {
+                if (selectedIngredients.bun?._id) {
+                  dispatch(getAuth(getStorageAccessToken()));
+                  setOrderFlag(true);
+                }
 
-                    if (e.payload?.success) {
-                      orderOpen();
-                    } else if (e.payload?.message === "jwt expired") {
-                      dispatch(getRefreshToken(getStorageRefreshToken())).then(
-                        (e: any) => {
-                          if (e.payload?.success) orderOpen();
-                          else alert(e.payload?.message);
-                        }
-                      );
-                    } else navigate("/login");
-                  });
             }}
           >
             Оформить заказ

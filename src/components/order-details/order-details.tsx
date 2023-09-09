@@ -6,6 +6,7 @@ import { getOrder } from "../../services/actions/order-detail";
 import { useEffect } from "react";
 import { deleteAllIngredient } from "../../services/actions/burger-constructor";
 import { TIngredient } from "../../types";
+import { getStorageAccessToken } from "../../utils/local-storage";
 type Props = {
   onClose: () => void
 }
@@ -29,7 +30,7 @@ const OrderDetails = (props: Props) => {
         ...selectedIngredients.mains.map((i: TIngredient) => {
           return i._id;
         }),
-      ])
+      ],getStorageAccessToken())
     );
     dispatch(deleteAllIngredient());
     // eslint-disable-next-line react-hooks/exhaustive-deps

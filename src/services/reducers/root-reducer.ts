@@ -21,10 +21,10 @@ export const rootReducer = combineReducers({
   resetPassword: resetPassword,
   registration: registration,
   login: login,
-  refreshToken:refreshToken,
-  logout:logout,
-  getAuth:getAuth,
-  updateAuth:updateAuth,
-  feed:feed,
-  
+  refreshToken: refreshToken,
+  logout: logout,
+  getAuth: getAuth,
+  updateAuth: updateAuth,
+  feed: feed,
 });
+

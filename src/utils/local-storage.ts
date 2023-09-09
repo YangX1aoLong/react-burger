@@ -5,8 +5,9 @@ export const saveStorageRefreshToken = (token: string) => {
   localStorage.setItem("refreshToken", token.toString());
 };
 export const getStorageAccessToken = () => {
-  return localStorage.getItem("accessToken");
-    
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken === null) return "null"
+  else return accessToken;  
 };
 export const getStorageRefreshToken = () => {
   const refreshToken = localStorage.getItem("refreshToken");

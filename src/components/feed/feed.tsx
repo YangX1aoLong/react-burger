@@ -1,11 +1,15 @@
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import style from "./feed.module.css"
 import { TFeedOrder, TIngredient } from "../../types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router";
 import { getDate } from "../../utils/other-functions";
+import { useEffect } from "react";
+import { connect, disconnect } from "../../services/actions/feed";
+import { urlOrdersAll } from "../../utils/get-data";
 const Feed = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { feed } = useSelector(
         (store: any) => ({ feed: store.feed.data }),
         shallowEqual
@@ -26,7 +30,14 @@ const Feed = () => {
         })
         return price;
     }
-  
+ 
+    useEffect(() => {
+        dispatch(connect(urlOrdersAll));
+        return () => {
+            dispatch(disconnect());
+        }
+    }, [])
+
     const onOrder = (id: string) => {
         navigate(`/feed/${id}`)
     }

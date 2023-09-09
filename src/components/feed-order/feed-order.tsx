@@ -10,29 +10,27 @@ type TIngredientWithCount = TIngredient & {
 }
 const FeedOrder = () => {
     const location = useLocation();
-    const { feed } = useSelector(
-        (store: any) => ({ feed: store.feed.data.orders.find((i: TFeedOrder) => i._id === location.pathname.substring(6)) }),
-        shallowEqual
-    );
+    const feedList = useSelector(
+        (store: any) => (store.feed), shallowEqual);
     const { ingredients } = useSelector(
-        (store: any) => ({ ingredients: store.ingredients.data }),
-        shallowEqual
-    );
+        (store: any) => ({ ingredients: store.ingredients.data }), shallowEqual);
     const [order, setOrder] = useState<TFeedOrder>();
     const [ingredientDetail, setIngredientDetail] = useState<TIngredientWithCount[]>();
-
     useEffect(() => {
-        setOrder(feed);
-        getIngredient(feed.ingredients);
-    }, [ingredients])
+        const feed = feedList?.data?.orders?.find((i: TFeedOrder) => i._id === location.pathname.substring(6))
+        if (feed) {
+            setOrder(feed);
+            getIngredient(feed.ingredients);
+        }
+    }, [feedList])
     const getIngredient = (ingredientsDetails: [string]) => {
         let data: TIngredientWithCount[] = [];
         for (let i = 0; i < ingredientsDetails.length; i++) {
             const index = data.findIndex((j: TIngredient) => j?._id === ingredientsDetails[i]);
             if (index !== -1)
                 data[index] = { ...data[index], count: ++data[index].count }
-            else if (ingredients.find((j: TIngredient) => j._id === ingredientsDetails[i]))
-                data.push({ ...ingredients.find((j: TIngredient) => j._id === ingredientsDetails[i]), count: 1 });
+            else if (ingredients?.find((j: TIngredient) => j._id === ingredientsDetails[i]))
+                data.push({ ...ingredients?.find((j: TIngredient) => j._id === ingredientsDetails[i]), count: 1 });
         }
         setIngredientDetail(data);
     }

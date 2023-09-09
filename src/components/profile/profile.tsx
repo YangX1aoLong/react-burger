@@ -12,32 +12,24 @@ import {
 import { getRefreshToken } from "../../services/actions/refresh-token";
 import { updateAuth } from "../../services/actions/update-auth";
 const Profile = () => {
-  const auth = useSelector((store:any) => store.getAuth, shallowEqual);
+  const auth = useSelector((store: any) => store.getAuth, shallowEqual);
   const [name, setName] = useState(auth?.data?.user?.name);
   const [email, setEmail] = useState(auth?.data?.user?.email);
   const [password, setPassword] = useState("");
   const [edit, setEdit] = useState(false);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const getDataAuth = () => {
-    dispath(getAuth(getStorageAccessToken())).then((e:any) => {
-      if (!e.payload?.success) {
-        if (e.payload?.message === "jwt expired") {
-          dispath(getRefreshToken(getStorageRefreshToken())).then((e:any) => {
-            if (e.payload?.success) dispath(getAuth(getStorageAccessToken()));
-            else alert(e.payload?.message);
-          });
-        }
-      }
-    });
+    dispatch(getAuth(getStorageAccessToken()));
   };
   const saveDataAuth = () => {
-    dispath(updateAuth(getStorageAccessToken(),name,email,password)).then((e:any) => {
-    });
+    dispatch(updateAuth(getStorageAccessToken(), name, email, password));
   };
   useEffect(() => {
     getDataAuth();
   }, []);
   useEffect(() => {
+    if (auth?.error?.message === 'jwt expired')
+      dispatch(getRefreshToken(getStorageRefreshToken()));
     setName(auth?.data?.user?.name);
     setEmail(auth?.data?.user?.email);
   }, [auth]);
