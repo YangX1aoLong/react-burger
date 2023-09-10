@@ -6,7 +6,7 @@ export const GET_REFRESH_TOKEN_SUCCESS = "GET_REFRESH_TOKEN_SUCCESS";
 export const GET_REFRESH_TOKEN_ERROR = "GET_REFRESH_TOKEN_ERROR";
 
 export const getRefreshToken =
-  (token: string | null): any =>
+  (token: string | null) =>
   (dispatch: TDispatch) => {
     dispatch({ type: GET_REFRESH_TOKEN_REQUEST });
     if (token === null) {

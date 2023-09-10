@@ -79,6 +79,10 @@ export type TIngredient = {
   __v: number;
   _id: string;
 };
+export interface IIngredientsAction {
+  type:string;
+  payload:TIngredient[]|string;
+}
 
 export type TIngredientConstructor = TIngredient & {
   id: number;

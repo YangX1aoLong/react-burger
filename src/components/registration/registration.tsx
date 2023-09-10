@@ -8,13 +8,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getRegistration } from "../../services/actions/registration";
 import { TInputIcon, TInputType } from "../../types";
+import { AppDispatch } from "../../services/store/store";
 const Registration = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const onIconClick = () => {
     if (inputIcon === "HideIcon") {

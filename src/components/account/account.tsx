@@ -9,12 +9,13 @@ import {
 } from "../../utils/local-storage";
 import { useDispatch } from "react-redux";
 import Orders from "../orders";
+import { AppDispatch } from "../../services/store/store";
 
 const points = ["Профиль", "История заказов", "Выход"];
 const Account = () => {
   const [selectedPoint, setSelectedPoint] = useState(points[0]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const selectProfile = () => {
     setSelectedPoint(points[0]);
   };

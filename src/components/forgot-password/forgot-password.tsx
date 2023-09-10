@@ -7,12 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getForgotPassword } from "../../services/actions/forgot-password";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../services/store/store";
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const [flag, setFlag] = useState(false);
-  const password: any = useSelector((store: any) => ({ password: store.forgotPassword }), shallowEqual);
+  const password = useSelector((store: RootState) => ({ password: store.forgotPassword }), shallowEqual);
   useEffect(() => {
     if (password?.password?.data?.success && flag) { setFlag(false); navigate("/reset-password"); }
   }, [password])

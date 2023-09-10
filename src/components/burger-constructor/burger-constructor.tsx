@@ -19,16 +19,17 @@ import { useNavigate } from "react-router-dom";
 import { getAuth } from "../../services/actions/get-auth";
 import { getRefreshToken } from "../../services/actions/refresh-token";
 import { TIngredientConstructor, TItemIngredient } from "../../types";
+import { AppDispatch, RootState } from "../../services/store/store";
 const BurgerConstructor = () => {
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [order, setOrder] = useState(false);
   const [orderFlag,setOrderFlag] = useState(false);
   const { selectedIngredients } = useSelector(
-    (store: any) => ({ selectedIngredients: store.burgerConstructor }),
+    (store:RootState) => ({ selectedIngredients: store.burgerConstructor }),
     shallowEqual
   );
-  const auth = useSelector((store: any) => store.getAuth, shallowEqual);
+  const auth = useSelector((store:RootState) => store.getAuth, shallowEqual);
   useEffect(() => {
     if (auth?.error?.message === 'jwt expired')
       dispatch(getRefreshToken(getStorageRefreshToken()));
@@ -37,19 +38,6 @@ const BurgerConstructor = () => {
       orderOpen();      
     }    
   }, [auth])
-  // .then((e: any) => {
-
-  //   if (e.payload?.success) {
-  //     orderOpen();
-  //   } else if (e.payload?.message === "jwt expired") {
-  //     dispatch(getRefreshToken(getStorageRefreshToken())).then(
-  //       (e: any) => {
-  //         if (e.payload?.success) orderOpen();
-  //         else alert(e.payload?.message);
-  //       }
-  //     );
-  //   } else navigate("/login");
-  // });
   const summPrice = () => {
     let summ = 0;
     for (let i = 0; i < selectedIngredients.mains.length; i++)

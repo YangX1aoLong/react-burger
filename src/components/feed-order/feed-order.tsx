@@ -1,14 +1,17 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import style from "./feed-order.module.css"
 import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { TFeedOrder, TIngredient } from "../../types";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CloseIcon, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getDate } from "../../utils/other-functions";
 type TIngredientWithCount = TIngredient & {
     count: number;
 }
-const FeedOrder = () => {
+type Props = {
+    modal: boolean;
+}
+const FeedOrder = (props: Props) => {
     const location = useLocation();
     const feedList = useSelector(
         (store: any) => (store.feed), shallowEqual);
@@ -47,10 +50,22 @@ const FeedOrder = () => {
             return "Выполнен";
         else return "В работе"
     }
-
+    const navigate = useNavigate();
+    const onClose = () => {
+        navigate(-1);
+    };
     return (
-        <div className={style.window}>
-            <p className="textGrey textCenter text text_type_digits-default">#{order?.number}</p>
+        <div className={props.modal ? style.windowModal : style.window}>
+            <div className="container" >
+                <p className="textGrey textCenter text text_type_digits-default">#{order?.number}</p>
+                {props.modal && <div className={style.closeIconBox}
+                    onClick={() => {
+                        onClose();
+                    }} >
+                    <CloseIcon type="primary" />
+                </div>
+                }
+            </div>
             <p className={`textGrey text text_type_main-medium mt-10`}>{order?.name}</p>
             <p className={`textGreen text text_type_main-default mt-3`}>{getStatus(order?.status)}</p>
             <p className={`textGrey text text_type_main-medium mt-15`}>Состав:</p>

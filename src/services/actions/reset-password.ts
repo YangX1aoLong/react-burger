@@ -6,7 +6,7 @@ export const GET_RESET_PASSWORD_SUCCESS = "GET_RESET_PASSWORD_SUCCESS";
 export const GET_RESET_PASSWORD_ERROR = "GET_RESET_PASSWORD_ERROR";
 
 export const getResetPassword =
-  (pass: string, token: string): any =>
+  (pass: string, token: string) =>
   (dispatch: TDispatch) => {
     dispatch({ type: GET_RESET_PASSWORD_REQUEST });
     return fetchResetPassword(pass, token)

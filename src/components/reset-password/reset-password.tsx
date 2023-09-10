@@ -8,15 +8,16 @@ import { useEffect, useState } from "react";
 import { getResetPassword } from "../../services/actions/reset-password";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { TInputIcon, TInputType } from "../../types";
+import { AppDispatch, RootState } from "../../services/store/store";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispath = useDispatch();
+  const dispath:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const reset = useSelector(
-    (store: any) => (store.resetPassword),
+    (store: RootState) => (store.resetPassword),
     shallowEqual
   );
   useEffect(() => {

@@ -11,13 +11,14 @@ import {
 } from "../../utils/local-storage";
 import { getRefreshToken } from "../../services/actions/refresh-token";
 import { updateAuth } from "../../services/actions/update-auth";
+import { AppDispatch, RootState } from "../../services/store/store";
 const Profile = () => {
-  const auth = useSelector((store: any) => store.getAuth, shallowEqual);
+  const auth = useSelector((store: RootState) => store.getAuth, shallowEqual);
   const [name, setName] = useState(auth?.data?.user?.name);
   const [email, setEmail] = useState(auth?.data?.user?.email);
   const [password, setPassword] = useState("");
   const [edit, setEdit] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const getDataAuth = () => {
     dispatch(getAuth(getStorageAccessToken()));
   };

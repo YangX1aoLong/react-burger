@@ -15,8 +15,8 @@ import { ProtectedRouteElement } from '../../pages/protected-route-element';
 import IngredientDetails from '../ingredient-details';
 import { FeedPage } from '../../pages/feed-page';
 import { FeedOrderPage } from '../../pages/feed-order-page';
-import { feedIdPath, feedPath, forgotPassowrdPath, ingredietnsPath, loginPath, ordersIdPath, otherPath, profilePath, registerPath, resetPasswordPath, rootPath } from '../../utils/routes';
-import { OrdersIdPage } from '../../pages/orders-id-page';
+import { feedIdPath, feedPath, forgotPassowrdPath, ingredietnsPath, loginPath, otherPath, profilePath, registerPath, resetPasswordPath, rootPath } from '../../utils/routes';
+import { FeedOrderPageModal } from '../../pages/feed-order-page-modal';
 
 function App() {
   const dispatch = useDispatch()<any>;
@@ -40,13 +40,13 @@ function App() {
         <Route path={profilePath} element={<ProtectedRouteElement><ProfilePage /></ProtectedRouteElement>} />
         <Route path={feedIdPath} element={<ProtectedRouteElement><FeedOrderPage /></ProtectedRouteElement>} />
         <Route path={feedPath} element={<ProtectedRouteElement><FeedPage /></ProtectedRouteElement>} />
-        <Route path={ordersIdPath} element={<ProtectedRouteElement><OrdersIdPage /></ProtectedRouteElement>} />
         <Route path={otherPath} element={<NotFoundPage />} />
       </Routes>
       {
         state?.backgroundLocation && (
           <Routes>
-            <Route path="/ingredients/:id" element={<IngredientDetails />} />
+            <Route path={ingredietnsPath} element={<IngredientDetails />} />
+            <Route path={feedIdPath} element={<FeedOrderPageModal/>}/>
           </Routes>
         )
       }

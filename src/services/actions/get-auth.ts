@@ -17,7 +17,7 @@ export interface IGetAuthError {
 export type TAuth = IGetAuthRequest | IGetAuthSuccess | IGetAuthError;
 
 export const getAuth =
-  (token: string | null): any =>
+  (token: string | null) =>
   (dispatch: TDispatch) => {
     dispatch({ type: GET_AUTH_REQUEST });
     if (token === null) {

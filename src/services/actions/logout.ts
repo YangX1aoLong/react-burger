@@ -6,7 +6,7 @@ export const GET_LOGOUT_REQUEST = "GET_LOGOUT_REQUEST";
 export const GET_LOGOUT_SUCCESS = "GET_LOGOUT_SUCCESS";
 export const GET_LOGOUT_ERROR = "GET_LOGOUT_ERROR";
 
-export const getLogout: any = (token: string) => (dispatch: TDispatch) => {
+export const getLogout = (token: string) => (dispatch: TDispatch) => {
   dispatch({ type: GET_LOGOUT_REQUEST });
   clearStorage();
   return fetchLogout(token)

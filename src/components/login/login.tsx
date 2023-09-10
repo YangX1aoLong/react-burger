@@ -5,17 +5,18 @@ import {
 import style from "./login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { TypedUseSelectorHook, shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getLogin } from "../../services/actions/login";
 import { TInputIcon, TInputType } from "../../types";
+import { AppDispatch, RootState } from "../../services/store/store";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const login = useSelector((store:any) => store.login,shallowEqual);
+  const login = useSelector((store:RootState) => store.login,shallowEqual);
   const onIconClick = () => {
     if (inputIcon === "HideIcon") {
       setIntputType("text");

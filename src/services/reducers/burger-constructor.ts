@@ -1,7 +1,5 @@
 import {
   TIngredientConstructor,
-  TIngredientConstructorAction,
-  TIngredientConstructorActionSort,
 } from "../../types";
 import {
   ADD_INGREDIENT,

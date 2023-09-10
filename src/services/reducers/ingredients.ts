@@ -1,3 +1,4 @@
+import { IIngredientsAction } from "../../types";
 import {
   GET_INGREDIENTS_ERROR,
   GET_INGREDIENTS_REQUEST,
@@ -9,7 +10,7 @@ const initialState = {
   error: null,
   isLoading: false,
 };
-export const ingredients = (state = initialState, action:any) => {
+export const ingredients = (state = initialState, action: IIngredientsAction) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST:
       return {

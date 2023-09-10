@@ -5,7 +5,7 @@ export const GET_LOGIN_REQUEST = "GET_LOGIN_REQUEST";
 export const GET_LOGIN_SUCCESS = "GET_LOGIN_SUCCESS";
 export const GET_LOGIN_ERROR = "GET_LOGIN_ERROR";
 
-export const getLogin:any =
+export const getLogin =
   (email: string, password: string) => (dispatch: TDispatch) => {
     dispatch({ type: GET_LOGIN_REQUEST });
     return fetchLogin(email, password)

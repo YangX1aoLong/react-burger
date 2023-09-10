@@ -5,7 +5,7 @@ export const GET_FORGOT_PASSWORD_REQUEST = "GET_FORGOT_PASSWORD_REQUEST";
 export const GET_FORGOT_PASSWORD_SUCCESS = "GET_FORGOT_PASSWORD_SUCCESS";
 export const GET_FORGOT_PASSWORD_ERROR = "GET_FORGOT_PASSWORD_ERROR";
 
-export const getForgotPassword:any = (email: string) => (dispatch: TDispatch) => {
+export const getForgotPassword = (email: string) => (dispatch: TDispatch) => {
   dispatch({ type: GET_FORGOT_PASSWORD_REQUEST });
   return fetchForgotPassword(email)
     .then((res) =>

@@ -4,7 +4,6 @@ import {
 } from "@reduxjs/toolkit";
 import { Middleware } from "redux";
 import { RootState } from "../store/store";
-import { TFeedTableActions } from "../actions/feed";
 
 export type TwsActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
@@ -25,7 +24,7 @@ export const socketMiddleware = (
     let isConnected = false;
     let reconnectTimer = 0;
     let url = "";
-    return (next) => (action) => {    
+    return (next) => (action) => {
       const { dispatch } = store;
       const {
         wsConnect,
@@ -50,7 +49,7 @@ export const socketMiddleware = (
         };
 
         socket.onerror = (err) => {
-          console.log(err);
+          dispatch(onError(err.toString()));
         };
 
         socket.onmessage = (event) => {

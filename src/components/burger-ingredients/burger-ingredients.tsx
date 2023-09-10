@@ -5,6 +5,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import IngredientBox from "../ingredient-box";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient } from "../../types";
+import { RootState } from "../../services/store/store";
 
 const BurgerIngredients = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,8 +18,8 @@ const BurgerIngredients = () => {
   const location = useLocation();
   const [current, setCurrent] = useState(ingredientsTypes[0].type);
 
-  const { ingredients } = useSelector(
-    (store: any) => ({ ingredients: store.ingredients }),
+  const ingredients = useSelector(
+    (store: RootState) => (store.ingredients),
     shallowEqual
   );
 
@@ -93,6 +94,7 @@ const BurgerIngredients = () => {
                     .map((i: TIngredient, count: number) => {
                       return (
                         <Link
+                          className="textDecorationNone"
                           key={`${i._id}link`}
                           to={`/ingredients/${i._id}`}
                           state={{ backgroundLocation: location }}
