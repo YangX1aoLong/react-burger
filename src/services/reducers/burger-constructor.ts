@@ -1,4 +1,8 @@
-import { TIngredientConstructor } from "../../types";
+import {
+  TIngredientConstructor,
+  TIngredientConstructorAction,
+  TIngredientConstructorActionSort,
+} from "../../types";
 import {
   ADD_INGREDIENT,
   DELETE_ALL_INGREDIENT,
@@ -17,7 +21,7 @@ const initialState: {
 export const burgerConstructor = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_INGREDIENT:
-      switch (action.payload.type) {
+      switch (action.payload?.type) {
         case "main":
           return { ...state, mains: [...state.mains, action.payload] };
         case "bun":

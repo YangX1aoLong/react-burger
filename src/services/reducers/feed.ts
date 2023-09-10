@@ -1,10 +1,11 @@
 import { createReducer } from "@reduxjs/toolkit";
 import {  wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "../actions/feed";
 import { WebsocketStatus } from "../../types/temp";
+import { TFeed } from "../../types";
 
 export type LiveTableStore = {
-  status: any;  connectionError: string;
-  data: any;
+  status: string;  connectionError: string;
+  data: TFeed | {};
 };
 
 const initialState: LiveTableStore = {

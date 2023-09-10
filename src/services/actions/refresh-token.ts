@@ -1,3 +1,4 @@
+import { TDispatch } from "../../types";
 import { fetchRefreshToken } from "../../utils/get-data";
 
 export const GET_REFRESH_TOKEN_REQUEST = "GET_REFRESH_TOKEN_REQUEST";
@@ -6,7 +7,7 @@ export const GET_REFRESH_TOKEN_ERROR = "GET_REFRESH_TOKEN_ERROR";
 
 export const getRefreshToken =
   (token: string | null): any =>
-  (dispatch: any) => {
+  (dispatch: TDispatch) => {
     dispatch({ type: GET_REFRESH_TOKEN_REQUEST });
     if (token === null) {
       return null;

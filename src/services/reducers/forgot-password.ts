@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const forgotPassword = (state = initialState, action:any) => {
-  switch (action.type) {
+    switch (action.type) {
     case GET_FORGOT_PASSWORD_REQUEST:
       return {
         ...state,

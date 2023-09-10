@@ -1,3 +1,4 @@
+import { IAuthAction } from "../../types";
 import {
   GET_AUTH_ERROR,
   GET_AUTH_REQUEST,
@@ -10,7 +11,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const getAuth = (state = initialState, action:any) => {
+export const getAuth = (state = initialState, action: IAuthAction) => {
   switch (action.type) {
     case GET_AUTH_REQUEST:
       return {
