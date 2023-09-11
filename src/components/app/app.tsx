@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import AppHeader from '../app-header';
-import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 import { Route, Routes, useLocation, } from 'react-router-dom';
 import { MainPage } from '../../pages/main-page';
@@ -17,15 +16,14 @@ import { FeedPage } from '../../pages/feed-page';
 import { FeedOrderPage } from '../../pages/feed-order-page';
 import { feedIdPath, feedPath, forgotPassowrdPath, ingredietnsPath, loginPath, otherPath, profilePath, registerPath, resetPasswordPath, rootPath } from '../../utils/routes';
 import { FeedOrderPageModal } from '../../pages/feed-order-page-modal';
+import { useAppDispatch } from '../../utils/hooks';
 
 function App() {
-  const dispatch = useDispatch()<any>;
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch])
   let location = useLocation();
-
-
   const state = location.state as { backgroundLocation?: Location };
   return (
     <>

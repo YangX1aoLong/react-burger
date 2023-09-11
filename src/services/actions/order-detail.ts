@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchOrder } from "../../utils/get-data";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";

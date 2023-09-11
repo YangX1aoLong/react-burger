@@ -1,23 +1,24 @@
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import style from "./feed.module.css"
-import { TFeedOrder, TIngredient } from "../../types";
+import { TFeedOrder } from "../../types/socket";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { getDate } from "../../utils/other-functions";
 import { useEffect } from "react";
 import { connect, disconnect } from "../../services/actions/feed";
 import { urlOrdersAll } from "../../utils/get-data";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../types/ingredient";
 const Feed = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
-    const { feed } = useSelector(
-        (store: any) => ({ feed: store.feed.data }),
+    const { feed } = useAppSelector(
+        (store) => ({ feed: store.feed.data }),
         shallowEqual
     );
-    const { ingredients } = useSelector(
-        (store: any) => ({ ingredients: store.ingredients.data }),
+    const { ingredients } = useAppSelector(
+        (store) => ({ ingredients: store.ingredients.data }),
         shallowEqual
     );
     const getIngredient = (id: string) => {
@@ -26,7 +27,7 @@ const Feed = () => {
     const getPriceIngredients = (orderIngredients: string[]) => {
         let price: number = 0;
         orderIngredients.map((i: string) => {
-            const ingredinet: TIngredient = getIngredient(i);
+            const ingredinet: TIngredient |undefined= getIngredient(i);
             if (ingredinet) price += ingredinet.price;
             return null;
         })

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-ingredients.module.css";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import IngredientBox from "../ingredient-box";
 import { Link, useLocation } from "react-router-dom";
-import { TIngredient } from "../../types";
-import { RootState } from "../../services/store/store";
+import { useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../types/ingredient";
 
 const BurgerIngredients = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,11 +18,10 @@ const BurgerIngredients = () => {
   const location = useLocation();
   const [current, setCurrent] = useState(ingredientsTypes[0].type);
 
-  const ingredients = useSelector(
-    (store: RootState) => (store.ingredients),
+  const ingredients = useAppSelector(
+    (store) => (store.ingredients),
     shallowEqual
   );
-
   useEffect(() => {
     const position = sessionStorage.getItem("scroll");
     if (position !== null) setCurrent(position);

@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchRefreshToken } from "../../utils/get-data";
 
 export const GET_REFRESH_TOKEN_REQUEST = "GET_REFRESH_TOKEN_REQUEST";

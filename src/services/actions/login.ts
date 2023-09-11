@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchLogin } from "../../utils/get-data";
 
 export const GET_LOGIN_REQUEST = "GET_LOGIN_REQUEST";

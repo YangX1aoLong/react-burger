@@ -60,7 +60,6 @@ export const socketMiddleware = (
 
         socket.onclose = (event) => {
           if (event.code !== 1005) {
-            console.log(event);
             dispatch(onError(event.code.toString()));
           }
           dispatch(onClose());

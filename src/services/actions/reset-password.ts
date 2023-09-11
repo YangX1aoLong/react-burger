@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchResetPassword } from "../../utils/get-data";
 
 export const GET_RESET_PASSWORD_REQUEST = "GET_RESET_PASSWORD_REQUEST";

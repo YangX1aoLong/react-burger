@@ -8,18 +8,19 @@ import {
   deleteIngredient,
   sortIngredient,
 } from "../../services/actions/burger-constructor";
-import { useDispatch } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks";
 import { useRef } from "react";
-import { TIngredientConstructor, TItemIngredient } from "../../types";
 import { XYCoord } from "react-dnd";
+import { useAppDispatch } from "../../utils/hooks";
+import { TItemIngredient } from "../../types/burger-constructor";
+import { TIngredientWithCount } from "../../types/ingredient";
 
 type Props = {
   interval: string;
-  element: TIngredientConstructor
+  element: TIngredientWithCount
 }
 const ConstructorBox = (props: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag({
     type: "consturctorElement",
@@ -63,7 +64,7 @@ const ConstructorBox = (props: Props) => {
           price={props.element.price}
           thumbnail={props.element.image}
           handleClose={() => {
-            dispatch(deleteIngredient(props.element.id));
+            dispatch(deleteIngredient(Number(props.element.id)));
           }}
         />
       </div>

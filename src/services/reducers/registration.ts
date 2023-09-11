@@ -1,3 +1,5 @@
+import { TRefreshTokenAction } from "../../types/refresh-token";
+import { TRegistrationState } from "../../types/registration";
 import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/local-storage";
 import {
   GET_REGISTRATION_ERROR,
@@ -5,13 +7,13 @@ import {
   GET_REGISTRATION_SUCCESS,
 } from "../actions/registration";
 
-const initialState = {
-  data: {},
+const initialState:TRegistrationState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const registration = (state = initialState, action:any) => {
+export const registration = (state = initialState, action:TRefreshTokenAction):TRegistrationState => {
   switch (action.type) {
     case GET_REGISTRATION_REQUEST:
       return {

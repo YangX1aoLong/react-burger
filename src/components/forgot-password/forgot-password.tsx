@@ -6,14 +6,14 @@ import style from "./forgot-password.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getForgotPassword } from "../../services/actions/forgot-password";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../services/store/store";
+import { shallowEqual } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [flag, setFlag] = useState(false);
-  const password = useSelector((store: RootState) => ({ password: store.forgotPassword }), shallowEqual);
+  const password = useAppSelector((store) => ({ password: store.forgotPassword }), shallowEqual);
   useEffect(() => {
     if (password?.password?.data?.success && flag) { setFlag(false); navigate("/reset-password"); }
   }, [password])

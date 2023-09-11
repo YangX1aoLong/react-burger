@@ -1,39 +1,40 @@
 import { useLocation, useNavigate } from "react-router";
 import style from "./feed-order.module.css"
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
-import { TFeedOrder, TIngredient } from "../../types";
+import { TFeedOrder } from "../../types/socket";
 import { CloseIcon, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getDate } from "../../utils/other-functions";
-type TIngredientWithCount = TIngredient & {
-    count: number;
-}
+import { useAppSelector } from "../../utils/hooks";
+import { TIngredient, TIngredientWithCount } from "../../types/ingredient";
+import { nullTFeedOrder } from "../../types/feed";
+
 type Props = {
     modal: boolean;
 }
 const FeedOrder = (props: Props) => {
     const location = useLocation();
-    const feedList = useSelector(
-        (store: any) => (store.feed), shallowEqual);
-    const { ingredients } = useSelector(
-        (store: any) => ({ ingredients: store.ingredients.data }), shallowEqual);
-    const [order, setOrder] = useState<TFeedOrder>();
+    const feedList = useAppSelector(
+        (store) => (store.feed), shallowEqual);
+    const { ingredients } = useAppSelector(
+        (store) => ({ ingredients: store.ingredients.data }), shallowEqual);
+    const [order, setOrder] = useState<TFeedOrder>(nullTFeedOrder);
     const [ingredientDetail, setIngredientDetail] = useState<TIngredientWithCount[]>();
     useEffect(() => {
-        const feed = feedList?.data?.orders?.find((i: TFeedOrder) => i._id === location.pathname.substring(6))
-        if (feed) {
+        const feed = feedList?.data?.orders?.find((i) => i._id === location.pathname.substring(6))
+        if (feed !== undefined) {
             setOrder(feed);
             getIngredient(feed.ingredients);
         }
     }, [feedList])
-    const getIngredient = (ingredientsDetails: [string]) => {
+    const getIngredient = (ingredientsDetails: string[]) => {
         let data: TIngredientWithCount[] = [];
         for (let i = 0; i < ingredientsDetails.length; i++) {
             const index = data.findIndex((j: TIngredient) => j?._id === ingredientsDetails[i]);
             if (index !== -1)
                 data[index] = { ...data[index], count: ++data[index].count }
             else if (ingredients?.find((j: TIngredient) => j._id === ingredientsDetails[i]))
-                data.push({ ...ingredients?.find((j: TIngredient) => j._id === ingredientsDetails[i]), count: 1 });
+                data.push({ ...ingredients?.find((j: TIngredient) => j._id === ingredientsDetails[i])!, count: 1, id: "" });
         }
         setIngredientDetail(data);
     }

@@ -1,17 +1,21 @@
-import { IAuthAction } from "../../types";
+import { TAuthAction } from "../../types/auth";
+import { TAuthState } from "../../types/get-auth";
 import {
   GET_AUTH_ERROR,
   GET_AUTH_REQUEST,
   GET_AUTH_SUCCESS,
 } from "../actions/get-auth";
 
-const initialState = {
-  data: {},
+const initialState: TAuthState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const getAuth = (state = initialState, action: IAuthAction) => {
+export const getAuth = (
+  state = initialState,
+  action: TAuthAction
+): TAuthState => {
   switch (action.type) {
     case GET_AUTH_REQUEST:
       return {

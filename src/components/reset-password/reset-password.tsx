@@ -6,18 +6,18 @@ import style from "./reset-password.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getResetPassword } from "../../services/actions/reset-password";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { TInputIcon, TInputType } from "../../types";
-import { AppDispatch, RootState } from "../../services/store/store";
+import { shallowEqual, } from "react-redux";
+import { TInputIcon, TInputType } from "../../types/socket";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispath:AppDispatch = useDispatch();
+  const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const reset = useSelector(
-    (store: RootState) => (store.resetPassword),
+  const reset = useAppSelector(
+    (store) => (store.resetPassword),
     shallowEqual
   );
   useEffect(() => {

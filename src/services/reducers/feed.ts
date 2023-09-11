@@ -1,17 +1,18 @@
 import { createReducer } from "@reduxjs/toolkit";
-import {  wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "../actions/feed";
+import {
+  wsClose,
+  wsConnecting,
+  wsError,
+  wsMessage,
+  wsOpen,
+} from "../actions/feed";
 import { WebsocketStatus } from "../../types/temp";
-import { TFeed } from "../../types";
+import { TFeedState, nullTFeed } from "../../types/feed";
 
-export type LiveTableStore = {
-  status: string;  connectionError: string;
-  data: TFeed | {};
-};
-
-const initialState: LiveTableStore = {
+const initialState: TFeedState = {
   status: WebsocketStatus.OFFLINE,
   connectionError: "",
-  data: {},
+  data: nullTFeed,
 };
 
 export const feed = createReducer(initialState, (builder) => {
@@ -30,6 +31,6 @@ export const feed = createReducer(initialState, (builder) => {
       state.connectionError = action.payload;
     })
     .addCase(wsMessage, (state, action) => {
-      state.data = action.payload;
-    })
+      if (typeof action.payload !== "string") state.data = action.payload;
+    });
 });

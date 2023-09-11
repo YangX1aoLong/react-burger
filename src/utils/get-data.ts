@@ -1,4 +1,4 @@
-import { TAuthResponse, TIngredientsResponse, TLoginResponse, TMessageResponse, TOrderResponse, TTokenResponse } from "../types";
+import { TAuthResponse, TIngredientsResponse, TLoginResponse, TMessageResponse, TOrderResponse, TTokenResponse } from "../types/socket";
 
 export const urlData = "https://norma.nomoreparties.space/api";
 export const urlOrdersAll = "wss://norma.nomoreparties.space/orders/all";

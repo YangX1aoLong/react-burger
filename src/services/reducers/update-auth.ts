@@ -1,25 +1,36 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { TAuthAction } from "../../types/auth";
+import { TAuthState } from "../../types/get-auth";
 import {
   UPDATE_AUTH_ERROR,
   UPDATE_AUTH_REQUEST,
   UPDATE_AUTH_SUCCESS,
 } from "../actions/update-auth";
 
-const initialState = {
-  data: {},
+const initialState:TAuthState = {
+  data: null,
   error: null,
   isLoading: false,
 };
-export const updateAuth = createReducer(initialState, (builder) => {
-  builder
-    .addCase(UPDATE_AUTH_REQUEST, (state) => {
-      state.isLoading = true;
-    })
-    .addCase(UPDATE_AUTH_SUCCESS, (state, action: any) => {
-      state.isLoading = false;
-      state.data = action.payload;
-    })
-    .addCase(UPDATE_AUTH_ERROR, (state, action: any) => {
-      state.error = action.payload;
-    });
-});
+
+export const updateAuth = (state = initialState, action:TAuthAction): TAuthState => {
+  switch (action.type) {
+    case UPDATE_AUTH_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case UPDATE_AUTH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: action.payload,
+      };
+    case UPDATE_AUTH_ERROR:
+      return {
+        ...initialState,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

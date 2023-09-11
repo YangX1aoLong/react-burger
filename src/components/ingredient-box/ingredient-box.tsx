@@ -3,18 +3,19 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ingredient-box.module.css";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { selectIngredient } from "../../services/actions/selected-ingredient";
 import { useDrag } from "react-dnd/dist/hooks";
-import { TIngredient } from "../../types";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../types/ingredient";
 type Props = {
   ingredient: TIngredient;
   count: number;
 }
 const IngredientBox = (props: Props) => {
-  const dispatch = useDispatch();
-  const { constructor } = useSelector(
-    (store: any) => ({ constructor: store.burgerConstructor }),
+  const dispatch = useAppDispatch();
+  const { constructor } = useAppSelector(
+    (store) => ({ constructor: store.burgerConstructor }),
     shallowEqual
   );
 

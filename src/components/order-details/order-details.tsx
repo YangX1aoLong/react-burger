@@ -1,24 +1,24 @@
 import Modal from "../modal";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import acceptIcon from "../../image/accept.png";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { getOrder } from "../../services/actions/order-detail";
 import { useEffect } from "react";
 import { deleteAllIngredient } from "../../services/actions/burger-constructor";
-import { TIngredient } from "../../types";
 import { getStorageAccessToken } from "../../utils/local-storage";
-import { AppDispatch, RootState } from "../../services/store/store";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../types/ingredient";
 type Props = {
   onClose: () => void
 }
 const OrderDetails = (props: Props) => {
-  const dispatch: AppDispatch = useDispatch();
-  const { selectedIngredients } = useSelector(
-    (store: RootState) => ({ selectedIngredients: store.burgerConstructor }),
+  const dispatch = useAppDispatch();
+  const { selectedIngredients } = useAppSelector(
+    (store) => ({ selectedIngredients: store.burgerConstructor }),
     shallowEqual
   );
-  const { orderDetails } = useSelector(
-    (store: RootState) => ({ orderDetails: store.orderDetail }),
+  const { orderDetails } = useAppSelector(
+    (store) => ({ orderDetails: store.orderDetail }),
     shallowEqual
   );
   useEffect(() => {

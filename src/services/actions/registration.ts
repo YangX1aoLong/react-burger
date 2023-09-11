@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchRegistration } from "../../utils/get-data";
 
 export const GET_REGISTRATION_REQUEST = "GET_REGISTRATION_REQUEST";

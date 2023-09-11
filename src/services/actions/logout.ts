@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchLogout } from "../../utils/get-data";
 import { clearStorage } from "../../utils/local-storage";
 

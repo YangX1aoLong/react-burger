@@ -5,17 +5,16 @@ import {
 import style from "./registration.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { getRegistration } from "../../services/actions/registration";
-import { TInputIcon, TInputType } from "../../types";
-import { AppDispatch } from "../../services/store/store";
+import { TInputIcon, TInputType } from "../../types/socket";
+import { useAppDispatch } from "../../utils/hooks";
 const Registration = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onIconClick = () => {
     if (inputIcon === "HideIcon") {

@@ -1,4 +1,4 @@
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 import { fetchUpdateAuth } from "../../utils/get-data";
 
 export const UPDATE_AUTH_REQUEST = "UPDATE_AUTH_REQUEST";

@@ -1,4 +1,4 @@
-import { TIngredient } from "../../types";
+import { TIngredient } from "../../types/ingredient";
 
 export const SELECT_INGREDIENT = "SELECT_INGREDIENT";
 export const UNSELECT_INGREDIENT = "UNSELECT_INGREDIENT";

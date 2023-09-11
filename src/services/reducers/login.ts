@@ -1,4 +1,4 @@
-import { TLoginActions } from "../../types";
+import { TLoginAction, TLoginState } from "../../types/login";
 import {
   saveStorageAccessToken,
   saveStorageRefreshToken,
@@ -9,13 +9,16 @@ import {
   GET_LOGIN_SUCCESS,
 } from "../actions/login";
 
-const initialState = {
-  data: {},
+const initialState: TLoginState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const login = (state = initialState, action: TLoginActions) => {
+export const login = (
+  state = initialState,
+  action: TLoginAction
+): TLoginState => {  
   switch (action.type) {
     case GET_LOGIN_REQUEST:
       return {

@@ -1,5 +1,5 @@
 import { fetchForgotPassword } from "../../utils/get-data";
-import { TDispatch } from "../../types";
+import { TDispatch } from "../../types/socket";
 
 export const GET_FORGOT_PASSWORD_REQUEST = "GET_FORGOT_PASSWORD_REQUEST";
 export const GET_FORGOT_PASSWORD_SUCCESS = "GET_FORGOT_PASSWORD_SUCCESS";
