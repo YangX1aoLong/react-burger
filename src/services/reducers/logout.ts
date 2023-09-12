@@ -1,3 +1,4 @@
+import { TLogoutAction, TLogoutState } from "../../types/logout";
 import { clearStorage } from "../../utils/local-storage";
 import {
   GET_LOGOUT_ERROR,
@@ -5,13 +6,13 @@ import {
   GET_LOGOUT_SUCCESS,
 } from "../actions/logout";
 
-const initialState = {
-  data: {},
+const initialState:TLogoutState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const logout = (state = initialState, action:any) => {
+export const logout = (state = initialState, action: TLogoutAction): TLogoutState => {
   switch (action.type) {
     case GET_LOGOUT_REQUEST:
       return {

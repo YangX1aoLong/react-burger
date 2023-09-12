@@ -1,3 +1,4 @@
+import { TDispatch } from "../../types/socket";
 import { fetchGetAuth } from "../../utils/get-data";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
@@ -16,8 +17,8 @@ export interface IGetAuthError {
 export type TAuth = IGetAuthRequest | IGetAuthSuccess | IGetAuthError;
 
 export const getAuth =
-  (token: string | null): any =>
-  (dispatch: any) => {
+  (token: string | null) =>
+  (dispatch: TDispatch) => {
     dispatch({ type: GET_AUTH_REQUEST });
     if (token === null) {
       return null;

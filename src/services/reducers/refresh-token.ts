@@ -1,3 +1,4 @@
+import { TRefreshTokenAction, TRefreshTokenState } from "../../types/refresh-token";
 import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/local-storage";
 import {
   GET_REFRESH_TOKEN_ERROR,
@@ -5,13 +6,13 @@ import {
   GET_REFRESH_TOKEN_SUCCESS,
 } from "../actions/refresh-token";
 
-const initialState = {
-  data: {},
+const initialState: TRefreshTokenState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const refreshToken = (state = initialState, action:any) => {
+export const refreshToken = (state = initialState, action:TRefreshTokenAction):TRefreshTokenState => {
   switch (action.type) {
     case GET_REFRESH_TOKEN_REQUEST:
       return {

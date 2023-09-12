@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -6,27 +6,38 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details";
 import style from "./burger-constructor.module.css";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks";
 import { addIngredient } from "../../services/actions/burger-constructor";
 
 import ConstructorBox from "../constructor-box";
 import {
-  getStorageAccessToken,
-  getStorageRefreshToken,
+  getStorageAccessToken, getStorageRefreshToken,
 } from "../../utils/local-storage";
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "../../services/actions/get-auth";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TItemIngredient } from "../../types/burger-constructor";
+import { TIngredientWithCount } from "../../types/ingredient";
 import { getRefreshToken } from "../../services/actions/refresh-token";
-import { TIngredientConstructor, TItemIngredient } from "../../types";
 const BurgerConstructor = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [order, setOrder] = useState(false);
-  const { selectedIngredients } = useSelector(
-    (store: any) => ({ selectedIngredients: store.burgerConstructor }),
+  const [orderFlag, setOrderFlag] = useState(false);
+  const { selectedIngredients } = useAppSelector(
+    (store) => ({ selectedIngredients: store.burgerConstructor }),
     shallowEqual
   );
+  const auth = useAppSelector((store) => store.getAuth, shallowEqual);
+  useEffect(() => {
+    if (auth?.error?.message === 'jwt expired')
+      dispatch(getRefreshToken(getStorageRefreshToken()));
+    if (orderFlag === true) {
+      setOrderFlag(false);
+      orderOpen();
+    }
+  }, [auth])
   const summPrice = () => {
     let summ = 0;
     for (let i = 0; i < selectedIngredients.mains.length; i++)
@@ -63,7 +74,7 @@ const BurgerConstructor = () => {
       </div>
 
       <div className={`${style.mainBoxBurgerConstructor} mt-4`}>
-        {selectedIngredients.mains.map((index: TIngredientConstructor, counter: number) => {
+        {selectedIngredients.mains.map((index: TIngredientWithCount, counter: number) => {
           let interval = "pt-4";
           if (counter === 0) interval = "pt-0";
           return (
@@ -100,20 +111,11 @@ const BurgerConstructor = () => {
               const token = getStorageAccessToken();
               if (token === null) navigate("/login");
               else
-                if (selectedIngredients.bun?._id)
-                  dispatch(getAuth(getStorageAccessToken())).then((e: any) => {
+                if (selectedIngredients.bun?._id) {
+                  dispatch(getAuth(getStorageAccessToken()));
+                  setOrderFlag(true);
+                }
 
-                    if (e.payload?.success) {
-                      orderOpen();
-                    } else if (e.payload?.message === "jwt expired") {
-                      dispatch(getRefreshToken(getStorageRefreshToken())).then(
-                        (e: any) => {
-                          if (e.payload?.success) orderOpen();
-                          else alert(e.payload?.message);
-                        }
-                      );
-                    } else navigate("/login");
-                  });
             }}
           >
             Оформить заказ

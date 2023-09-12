@@ -1,25 +1,12 @@
-import { TIngredient } from "../types";
+import { TAuthResponse, TIngredientsResponse, TLoginResponse, TMessageResponse, TOrderResponse, TTokenResponse } from "../types/socket";
 
-const urlData = "https://norma.nomoreparties.space/api";
+export const urlData = "https://norma.nomoreparties.space/api";
+export const urlOrdersAll = "wss://norma.nomoreparties.space/orders/all";
+const urlOrders = "wss://norma.nomoreparties.space/orders";
+export const getUrlOrders = (token: string) => {
+  return `${urlOrders}?token=${token.substring(7)}`;
+};
 
-type TServerResopnse<T> = {
-  success: boolean;
-} & T;
-
-type TIngredientsResponse = TServerResopnse<{ data: TIngredient[] }>;
-type TAuthResponse = TServerResopnse<{ user: { email: string; name: string } }>;
-type TMessageResponse = TServerResopnse<{ message: string }>;
-type TTokenResponse = TServerResopnse<{
-  accessToken: string;
-  refreshToken: string;
-}>;
-type TLoginResponse = TTokenResponse & TAuthResponse;
-type TOrderResponse = TServerResopnse<{
-  name: string;
-  order: {
-    number: number;
-  };
-}>;
 
 const checkReponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -120,7 +107,7 @@ export const fetchRegistration = async (
       name: name,
     }),
   });
-  const data = await checkReponse(res);
+  const data: TLoginResponse = await checkReponse(res);
   if (data?.success) return data;
   return Promise.reject(data);
 };
@@ -139,7 +126,7 @@ export const fetchLogin = async (
       password: password,
     }),
   });
-  const data = await checkReponse(res);
+  const data: TLoginResponse = await checkReponse(res);
   if (data?.success) return data;
   return Promise.reject(data);
 };
@@ -178,11 +165,15 @@ export const fetchRefreshToken = async (
   return Promise.reject(data);
 };
 
-export const fetchOrder = async (data: string[]): Promise<TOrderResponse> => {
+export const fetchOrder = async (
+  data: string[],
+  token: string
+): Promise<TOrderResponse> => {
   const res = await fetch(`${urlData}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: token,
     },
     body: JSON.stringify({
       ingredients: data,

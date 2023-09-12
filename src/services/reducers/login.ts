@@ -1,17 +1,24 @@
-import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/local-storage";
+import { TLoginAction, TLoginState } from "../../types/login";
+import {
+  saveStorageAccessToken,
+  saveStorageRefreshToken,
+} from "../../utils/local-storage";
 import {
   GET_LOGIN_ERROR,
   GET_LOGIN_REQUEST,
   GET_LOGIN_SUCCESS,
 } from "../actions/login";
 
-const initialState = {
-  data: {},
+const initialState: TLoginState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const login = (state = initialState, action:any) => {
+export const login = (
+  state = initialState,
+  action: TLoginAction
+): TLoginState => {  
   switch (action.type) {
     case GET_LOGIN_REQUEST:
       return {
@@ -19,8 +26,8 @@ export const login = (state = initialState, action:any) => {
         isLoading: true,
       };
     case GET_LOGIN_SUCCESS:
-        saveStorageAccessToken(action.payload?.accessToken);
-        saveStorageRefreshToken(action.payload?.refreshToken);
+      saveStorageAccessToken(action.payload?.accessToken);
+      saveStorageRefreshToken(action.payload?.refreshToken);
       return {
         ...state,
         isLoading: false,

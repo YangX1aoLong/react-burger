@@ -1,16 +1,17 @@
+import { TForgotPasswordAction, TForgotPasswordState } from "../../types/forgot-password";
 import {
   GET_FORGOT_PASSWORD_ERROR,
   GET_FORGOT_PASSWORD_REQUEST,
   GET_FORGOT_PASSWORD_SUCCESS,
 } from "../actions/forgot-password";
 
-const initialState = {
-  data: {},
+const initialState: TForgotPasswordState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const forgotPassword = (state = initialState, action:any) => {
+export const forgotPassword = (state = initialState, action:TForgotPasswordAction): TForgotPasswordState => {
   switch (action.type) {
     case GET_FORGOT_PASSWORD_REQUEST:
       return {

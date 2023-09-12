@@ -1,14 +1,15 @@
 import style from "./ingredient.module.css";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
-import { TIngredient } from "../../types";
+import { useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../types/ingredient";
 type Props = {
   id: string
 }
 const Ingredient = (props: Props) => {
   const [ingredient, setIngredient] = useState<TIngredient>();
-  const ingredients = useSelector(
-    (store: any) => store.ingredients?.data,
+  const ingredients = useAppSelector(
+    (store) => store.ingredients?.data,
     shallowEqual
   );
   const getIngredient = () => {

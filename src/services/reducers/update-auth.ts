@@ -1,16 +1,18 @@
+import { TAuthAction } from "../../types/auth";
+import { TAuthState } from "../../types/get-auth";
 import {
   UPDATE_AUTH_ERROR,
   UPDATE_AUTH_REQUEST,
   UPDATE_AUTH_SUCCESS,
 } from "../actions/update-auth";
 
-const initialState = {
-  data: {},
+const initialState:TAuthState = {
+  data: null,
   error: null,
   isLoading: false,
 };
 
-export const updateAuth = (state = initialState, action:any) => {
+export const updateAuth = (state = initialState, action:TAuthAction): TAuthState => {
   switch (action.type) {
     case UPDATE_AUTH_REQUEST:
       return {

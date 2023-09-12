@@ -4,17 +4,25 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./reset-password.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getResetPassword } from "../../services/actions/reset-password";
-import { useDispatch } from "react-redux";
-import { TInputIcon, TInputType } from "../../types";
+import { shallowEqual, } from "react-redux";
+import { TInputIcon, TInputType } from "../../types/socket";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispath = useDispatch();
+  const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const reset = useAppSelector(
+    (store) => (store.resetPassword),
+    shallowEqual
+  );
+  useEffect(() => {
+    if (reset?.data?.success) navigate("/login")
+  }, [reset])
   const onIconClick = () => {
     if (inputIcon === "HideIcon") {
       setIntputType("text");
@@ -25,10 +33,7 @@ const ResetPassword = () => {
     }
   };
   const saveNewPassword = () => {
-    dispath(getResetPassword(password, token)).then((e:any) => {
-      if (e.payload?.success) navigate("/login");
-      else alert(e.payload?.message);
-    });
+    dispath(getResetPassword(password, token));
   };
   return (
     <div className={`${style.forgotPasswordBox}`}>

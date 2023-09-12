@@ -11,6 +11,7 @@ import { refreshToken } from "./refresh-token";
 import { logout } from "./logout";
 import { getAuth } from "./get-auth";
 import { updateAuth } from "./update-auth";
+import { feed } from "./feed";
 export const rootReducer = combineReducers({
   ingredients: ingredients,
   burgerConstructor: burgerConstructor,
@@ -20,9 +21,10 @@ export const rootReducer = combineReducers({
   resetPassword: resetPassword,
   registration: registration,
   login: login,
-  refreshToken:refreshToken,
-  logout:logout,
-  getAuth:getAuth,
-  updateAuth:updateAuth,
-  
+  refreshToken: refreshToken,
+  logout: logout,
+  getAuth: getAuth,
+  updateAuth: updateAuth,
+  feed: feed,
 });
+

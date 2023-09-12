@@ -4,17 +4,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./login.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { shallowEqual } from "react-redux";
 import { getLogin } from "../../services/actions/login";
-import { TInputIcon, TInputType } from "../../types";
+import { TInputIcon, TInputType } from "../../types/socket";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setIntputType] = useState<TInputType>("password");
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const login = useAppSelector((store) => store.login,shallowEqual);
   const onIconClick = () => {
     if (inputIcon === "HideIcon") {
       setIntputType("text");
@@ -25,11 +27,12 @@ const Login = () => {
     }
   };
   const onLogin = () => {
-    dispatch(getLogin(email, password)).then((e: any) => {
-      if (e.payload?.success) navigate("/")
-      else alert(e.payload?.message);
-    });
+    dispatch(getLogin(email, password));
   };
+  useEffect(()=>{
+    if (login?.data?.success) navigate("/")
+    else if (login?.error?.success === false) alert(login?.error?.message);
+  },[login])
 
   return (
     <div className={`${style.loginBox}`}>

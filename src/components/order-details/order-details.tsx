@@ -1,26 +1,28 @@
 import Modal from "../modal";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import acceptIcon from "../../image/accept.png";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { getOrder } from "../../services/actions/order-detail";
 import { useEffect } from "react";
 import { deleteAllIngredient } from "../../services/actions/burger-constructor";
-import { TIngredient } from "../../types";
+import { getStorageAccessToken } from "../../utils/local-storage";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../types/ingredient";
 type Props = {
   onClose: () => void
 }
 const OrderDetails = (props: Props) => {
-  const dispatch = useDispatch();
-  const { selectedIngredients } = useSelector(
-    (store: any) => ({ selectedIngredients: store.burgerConstructor }),
+  const dispatch = useAppDispatch();
+  const { selectedIngredients } = useAppSelector(
+    (store) => ({ selectedIngredients: store.burgerConstructor }),
     shallowEqual
   );
-  const { orderDetails } = useSelector(
-    (store: any) => ({ orderDetails: store.orderDetail }),
+  const { orderDetails } = useAppSelector(
+    (store) => ({ orderDetails: store.orderDetail }),
     shallowEqual
   );
   useEffect(() => {
-    let buns: TIngredient[] = [];
+    let buns: string[] = [];
     if (selectedIngredients.bun._id)
       buns = [selectedIngredients.bun._id, selectedIngredients.bun._id];
     dispatch(
@@ -29,7 +31,7 @@ const OrderDetails = (props: Props) => {
         ...selectedIngredients.mains.map((i: TIngredient) => {
           return i._id;
         }),
-      ])
+      ], getStorageAccessToken())
     );
     dispatch(deleteAllIngredient());
     // eslint-disable-next-line react-hooks/exhaustive-deps

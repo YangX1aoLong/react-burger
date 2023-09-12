@@ -1,12 +1,13 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ingredient-details.module.css";
 import Modal from "../modal";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { useNavigate } from "react-router";
+import { useAppSelector } from "../../utils/hooks";
 
 const IngredientDetails = () => {
-  const ingredient = useSelector(
-    (store: any) => store.selectedIngredient,
+  const ingredient = useAppSelector(
+    (store) => store.selectedIngredient,
     shallowEqual
   );
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const IngredientDetails = () => {
           </div>
           <img
             className={style.image}
-            src={ingredient ? ingredient.image_large : null}
+            src={ingredient ? ingredient.image_large : undefined}
             alt={ingredient.name}
           ></img>
           <p className="textCenter textGrey text text_type_main-medium">
