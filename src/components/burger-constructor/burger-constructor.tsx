@@ -9,7 +9,6 @@ import style from "./burger-constructor.module.css";
 import { shallowEqual } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks";
 import { addIngredient } from "../../services/actions/burger-constructor";
-
 import ConstructorBox from "../constructor-box";
 import {
   getStorageAccessToken, getStorageRefreshToken,
@@ -64,15 +63,19 @@ const BurgerConstructor = () => {
     <div ref={dropRef} className={`${style.burgerConstructor} pt-25 pl-4`}>
       {order && <OrderDetails onClose={orderClose} />}
       <div className={`${style.elementBoxEndBurgerConstructor} pt-4`}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={selectedIngredients.bun.name}
-          price={selectedIngredients.bun.price}
-          thumbnail={selectedIngredients.bun.image}
-        />
-      </div>
+        {selectedIngredients.bun.image ?
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={selectedIngredients.bun.name}
+            price={selectedIngredients.bun.price}
+            thumbnail={selectedIngredients.bun.image}
+          /> : <div>
+            <p className="textGrey text text_type_main-medium"> Перетащите сюда ингредиенты для создания бургера</p>
+          </div>
 
+        }
+      </div>
       <div className={`${style.mainBoxBurgerConstructor} mt-4`}>
         {selectedIngredients.mains.map((index: TIngredientWithCount, counter: number) => {
           let interval = "pt-4";
@@ -88,13 +91,15 @@ const BurgerConstructor = () => {
       </div>
 
       <div className={`${style.elementBoxEndBurgerConstructor} pt-4`}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={selectedIngredients.bun.name}
-          price={selectedIngredients.bun.price}
-          thumbnail={selectedIngredients.bun.image}
-        />
+        {selectedIngredients.bun.image &&
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={selectedIngredients.bun.name}
+            price={selectedIngredients.bun.price}
+            thumbnail={selectedIngredients.bun.image}
+          />
+        }
       </div>
       <div className={`${style.orderBox} pt-10`}>
         <p className="pt-5 textGrey text text_type_digits-medium">
@@ -115,7 +120,6 @@ const BurgerConstructor = () => {
                   dispatch(getAuth(getStorageAccessToken()));
                   setOrderFlag(true);
                 }
-
             }}
           >
             Оформить заказ
