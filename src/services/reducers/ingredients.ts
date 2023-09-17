@@ -29,6 +29,7 @@ export const ingredients = (
     case GET_INGREDIENTS_ERROR:
       return {
         ...state,
+        isLoading:false,
         error: action.payload,
       };
     default:

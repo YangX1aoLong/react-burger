@@ -31,6 +31,7 @@ export const registration = (state = initialState, action:TRefreshTokenAction):T
     case GET_REGISTRATION_ERROR:
       return {
         ...initialState,
+        isLoading: false,
         error: action.payload,
       };
     default:

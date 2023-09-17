@@ -16,7 +16,7 @@ const Login = () => {
   const [inputIcon, setInputIcon] = useState<TInputIcon>("HideIcon");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const login = useAppSelector((store) => store.login,shallowEqual);
+  const login = useAppSelector((store) => store.login, shallowEqual);
   const onIconClick = () => {
     if (inputIcon === "HideIcon") {
       setIntputType("text");
@@ -29,18 +29,18 @@ const Login = () => {
   const onLogin = () => {
     dispatch(getLogin(email, password));
   };
-  useEffect(()=>{
+  useEffect(() => {
     if (login?.data?.success) navigate("/")
-    else if (login?.error?.success === false) alert(login?.error?.message);
-  },[login])
+    else if (login?.error !== null && login?.isLoading === false) alert(login?.error?.message);
+  }, [login])
 
   return (
     <div className={`${style.loginBox}`}>
       <p className="textCenter textGrey text text_type_main-medium">Вход</p>
       <form className="mt-6">
         <Input
+          id="emailInput"
           placeholder="E-mail"
-          icon={undefined}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -48,16 +48,19 @@ const Login = () => {
       </form>
       <form className="mt-6">
         <Input
+          id="passwordInput"
           placeholder="Пароль"
           type={inputType}
           icon={inputIcon}
           onIconClick={onIconClick}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value)
+          }}
           value={password}
         />
       </form>
       <div className={`${style.buttonBox} mt-6`}>
-        <Button htmlType="button" onClick={onLogin}>
+        <Button id="loginButton" htmlType="button" onClick={onLogin}>
           Войти
         </Button>
       </div>

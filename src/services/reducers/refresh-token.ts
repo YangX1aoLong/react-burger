@@ -1,5 +1,11 @@
-import { TRefreshTokenAction, TRefreshTokenState } from "../../types/refresh-token";
-import { saveStorageAccessToken, saveStorageRefreshToken } from "../../utils/local-storage";
+import {
+  TRefreshTokenAction,
+  TRefreshTokenState,
+} from "../../types/refresh-token";
+import {
+  saveStorageAccessToken,
+  saveStorageRefreshToken,
+} from "../../utils/local-storage";
 import {
   GET_REFRESH_TOKEN_ERROR,
   GET_REFRESH_TOKEN_REQUEST,
@@ -12,7 +18,10 @@ const initialState: TRefreshTokenState = {
   isLoading: false,
 };
 
-export const refreshToken = (state = initialState, action:TRefreshTokenAction):TRefreshTokenState => {
+export const refreshToken = (
+  state = initialState,
+  action: TRefreshTokenAction
+): TRefreshTokenState => {
   switch (action.type) {
     case GET_REFRESH_TOKEN_REQUEST:
       return {
@@ -30,6 +39,7 @@ export const refreshToken = (state = initialState, action:TRefreshTokenAction):T
     case GET_REFRESH_TOKEN_ERROR:
       return {
         ...initialState,
+        isLoading: false,
         error: action.payload,
       };
     default:

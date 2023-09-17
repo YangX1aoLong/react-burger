@@ -27,6 +27,7 @@ export const resetPassword = (state = initialState, action:TResetPasswordAction)
     case GET_RESET_PASSWORD_ERROR:
       return {
         ...initialState,
+        isLoading: false,
         error: action.payload,
       };
     default:

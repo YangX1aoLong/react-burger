@@ -8,7 +8,6 @@ import { resetPassword } from "./reset-password";
 import { registration } from "./registration";
 import { login } from "./login";
 import { refreshToken } from "./refresh-token";
-import { logout } from "./logout";
 import { getAuth } from "./get-auth";
 import { updateAuth } from "./update-auth";
 import { feed } from "./feed";
@@ -22,7 +21,6 @@ export const rootReducer = combineReducers({
   registration: registration,
   login: login,
   refreshToken: refreshToken,
-  logout: logout,
   getAuth: getAuth,
   updateAuth: updateAuth,
   feed: feed,

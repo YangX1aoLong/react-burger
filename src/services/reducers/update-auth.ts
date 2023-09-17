@@ -28,6 +28,7 @@ export const updateAuth = (state = initialState, action:TAuthAction): TAuthState
     case UPDATE_AUTH_ERROR:
       return {
         ...initialState,
+        isLoading: false,
         error: action.payload,
       };
     default:
