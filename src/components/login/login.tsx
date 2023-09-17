@@ -39,6 +39,7 @@ const Login = () => {
       <p className="textCenter textGrey text text_type_main-medium">Вход</p>
       <form className="mt-6">
         <Input
+          id="emailInput"
           placeholder="E-mail"
           type="email"
           value={email}
@@ -47,6 +48,7 @@ const Login = () => {
       </form>
       <form className="mt-6">
         <Input
+          id="passwordInput"
           placeholder="Пароль"
           type={inputType}
           icon={inputIcon}
@@ -58,7 +60,7 @@ const Login = () => {
         />
       </form>
       <div className={`${style.buttonBox} mt-6`}>
-        <Button htmlType="button" onClick={onLogin}>
+        <Button id="loginButton" htmlType="button" onClick={onLogin}>
           Войти
         </Button>
       </div>

@@ -60,7 +60,7 @@ const BurgerConstructor = () => {
   });
 
   return (
-    <div ref={dropRef} className={`${style.burgerConstructor} pt-25 pl-4`}>
+    <div id="dropBox" ref={dropRef} className={`${style.burgerConstructor} pt-25 pl-4`}>
       {order && <OrderDetails onClose={orderClose} />}
       <div className={`${style.elementBoxEndBurgerConstructor} pt-4`}>
         {selectedIngredients.bun.image ?
@@ -110,6 +110,7 @@ const BurgerConstructor = () => {
         </div>
         <div className="pl-10">
           <Button
+            id="orderButton"
             htmlType="button"
             size="large"
             onClick={() => {

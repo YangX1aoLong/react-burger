@@ -13,7 +13,6 @@ const initialState:TAuthState = {
 };
 
 export const updateAuth = (state = initialState, action:TAuthAction): TAuthState => {
-  console.log(action)
   switch (action.type) {
     case UPDATE_AUTH_REQUEST:
       return {
