@@ -114,7 +114,7 @@ const BurgerConstructor = () => {
             size="large"
             onClick={() => {
               const token = getStorageAccessToken();
-              if (token === null) navigate("/login");
+              if (token === "null") navigate("/login");
               else
                 if (selectedIngredients.bun?._id) {
                   dispatch(getAuth(getStorageAccessToken()));

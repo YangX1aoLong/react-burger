@@ -33,6 +33,7 @@ export const orderDetail = (
     case GET_ORDER_ERROR:
       return {
         ...initialState,
+        isLoading: false,
         error: action.payload,
       };
     default:

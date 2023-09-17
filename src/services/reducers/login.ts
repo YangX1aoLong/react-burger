@@ -8,6 +8,11 @@ import {
   GET_LOGIN_REQUEST,
   GET_LOGIN_SUCCESS,
 } from "../actions/login";
+import {
+  GET_LOGOUT_ERROR,
+  GET_LOGOUT_REQUEST,
+  GET_LOGOUT_SUCCESS,
+} from "../actions/logout";
 
 const initialState: TLoginState = {
   data: null,
@@ -18,7 +23,7 @@ const initialState: TLoginState = {
 export const login = (
   state = initialState,
   action: TLoginAction
-): TLoginState => {  
+): TLoginState => {
   switch (action.type) {
     case GET_LOGIN_REQUEST:
       return {
@@ -32,10 +37,29 @@ export const login = (
         ...state,
         isLoading: false,
         data: action.payload,
+        error: null,
       };
     case GET_LOGIN_ERROR:
       return {
-        ...initialState,
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case GET_LOGOUT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: null,
+      };
+    case GET_LOGOUT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
         error: action.payload,
       };
     default:

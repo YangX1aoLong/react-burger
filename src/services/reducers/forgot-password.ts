@@ -26,7 +26,7 @@ export const forgotPassword = (state = initialState, action:TForgotPasswordActio
       };
     case GET_FORGOT_PASSWORD_ERROR:
       return {
-        ...initialState,
+        ...state,
         error: action.payload,
       };
     default:
